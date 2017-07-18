@@ -302,7 +302,7 @@ const SkillTable = {
         [StatKey.PSI_STR]: 0.1,
         [StatKey.PSI_DEX]: 0.1,
     })),
-    [SkillKey.COMBAT_WHIP]: new Skill(SkillKey.LEADERSHIP, new StatList({
+    [SkillKey.COMBAT_WHIP]: new Skill(SkillKey.COMBAT_WHIP, new StatList({
         [StatKey.PHY_STR]: 0.3,
         [StatKey.PHY_DEX]: 0.4,
         [StatKey.PHY_CON]: 0.2,
@@ -390,7 +390,7 @@ class LifeYear {
     statDecreases(yearIndex) {
         const statDecreaseBase = statDecreaseMagicFn(yearIndex) * -1;
         let resultStatDecreases = new StatList({}, statDecreaseBase, true);
-        const reallyUsedStats = this.stats().filterIfLessThen(REALLY_USED_STAT_MIN_VALUE);
+        const reallyUsedStats = this.stats(yearIndex).filterIfLessThen(REALLY_USED_STAT_MIN_VALUE);
         const reallyUsedStatDecreases = reallyUsedStats.replace(statDecreaseBase * USED_STAT_DECREASE_MODIFIER);
         resultStatDecreases = resultStatDecreases.mergeList(reallyUsedStatDecreases);
         return resultStatDecreases;
@@ -675,62 +675,60 @@ function printChar(character) {
     printList(character._skills.addList(character._skillModifiers).modify((v) => Math.round(v)));
 }
 
-// const char = new Character();
-// char.setChildhood(
-//     HomeRegionKey.WILD_STEPPE,
-//     ParentalLineageKey.STEPPE_NOBLE,
-//     ChildhoodVector.PHY,
-//     SkillKey.RIDING,
-// );
+const char = new Character();
+char.setChildhood(
+    HomeRegionKey.WILD_STEPPE,
+    ParentalLineageKey.STEPPE_NOBLE,
+    ChildhoodVector.PHY,
+    SkillKey.RIDING,
+);
 
-// char.invalidate();
+let year;
 
-// let year;
-//
-// for (let i = 0; i < 4; ++i) {
-//     year = new LifeYear(
-//         new SkillList({
-//             [SkillKey.LEADERSHIP]: 0.4,
-//             [SkillKey.RIDING]: 0.2,
-//             [SkillKey.KNOWLEDGE_LAW]: 0.2,
-//             [SkillKey.COMBAT_SABER]: 0.1,
-//             [SkillKey.COMBAT_BOW]: 0.1,
-//         }),
-//         [],
-//         HomeRegionKey.WILD_STEPPE,
-//     );
-//     char.addLifeYear(year);
-// }
-//
-// for (let i = 0; i < 2; ++i) {
-//     year = new LifeYear(
-//         new SkillList({
-//             [SkillKey.LEADERSHIP]: 0.1,
-//             [SkillKey.RIDING]: 0.3,
-//             [SkillKey.COMBAT_SABER]: 0.2,
-//             [SkillKey.COMBAT_BOW]: 0.1,
-//             [SkillKey.KNOWLEDGE_LIFE_STEPPE]: 0.3,
-//         }),
-//         [],
-//         HomeRegionKey.WILD_STEPPE,
-//     );
-//     char.addLifeYear(year);
-// }
-//
-// for (let i = 0; i < 6; ++i) {
-//     year = new LifeYear(
-//         new SkillList({
-//             [SkillKey.LEADERSHIP]: 0.4,
-//             [SkillKey.RIDING]: 0.2,
-//             [SkillKey.COMBAT_SABER]: 0.3,
-//             [SkillKey.COMBAT_BOW]: 0.1,
-//         }),
-//         [],
-//         HomeRegionKey.WILD_STEPPE,
-//     );
-//     char.addLifeYear(year);
-// }
-//
+for (let i = 0; i < 4; ++i) {
+    year = new LifeYear(
+        new SkillList({
+            [SkillKey.LEADERSHIP]: 0.4,
+            [SkillKey.RIDING]: 0.2,
+            [SkillKey.KNOWLEDGE_LAW]: 0.2,
+            [SkillKey.COMBAT_SABER]: 0.1,
+            [SkillKey.COMBAT_BOW]: 0.1,
+        }),
+        [],
+        HomeRegionKey.WILD_STEPPE,
+    );
+    char.addLifeYear(year);
+}
+
+for (let i = 0; i < 2; ++i) {
+    year = new LifeYear(
+        new SkillList({
+            [SkillKey.LEADERSHIP]: 0.1,
+            [SkillKey.RIDING]: 0.3,
+            [SkillKey.COMBAT_SABER]: 0.2,
+            [SkillKey.COMBAT_BOW]: 0.1,
+            [SkillKey.KNOWLEDGE_LIFE_STEPPE]: 0.3,
+        }),
+        [],
+        HomeRegionKey.WILD_STEPPE,
+    );
+    char.addLifeYear(year);
+}
+
+for (let i = 0; i < 10; ++i) {
+    year = new LifeYear(
+        new SkillList({
+            [SkillKey.LEADERSHIP]: 0.4,
+            [SkillKey.RIDING]: 0.2,
+            [SkillKey.COMBAT_SABER]: 0.3,
+            [SkillKey.COMBAT_BOW]: 0.1,
+        }),
+        [],
+        HomeRegionKey.WILD_STEPPE,
+    );
+    char.addLifeYear(year);
+}
+
 // for (let i = 0; i < 0; ++i) {
 //     year = new LifeYear(
 //         new SkillList({
@@ -744,36 +742,36 @@ function printChar(character) {
 //     );
 //     char.addLifeYear(year);
 // }
-//
-// char.invalidate();
-
-
-
-const char = new Character();
-char.setChildhood(
-    HomeRegionKey.TUNDRA_COAST,
-    ParentalLineageKey.ARTISAN_BONECARVER,
-    ChildhoodVector.PSI,
-    SkillKey.ART_VISUAL_CARVING,
-);
-
-let year;
-
-for (let i = 0; i < 24; ++i) {
-    year = new LifeYear(
-        new SkillList({
-            [SkillKey.SERVICE_TRADE]: 0.5,
-            [SkillKey.CRAFTING_BONE_CARVING]: 0.2,
-            [SkillKey.COMBAT_BOW]: 0.2,
-            [SkillKey.APPRAISAL]: 0.1,
-        }),
-        [],
-        HomeRegionKey.TUNDRA_COAST,
-    );
-    char.addLifeYear(year);
-}
 
 char.invalidate();
+
+
+
+// const char = new Character();
+// char.setChildhood(
+//     HomeRegionKey.TUNDRA_COAST,
+//     ParentalLineageKey.ARTISAN_BONECARVER,
+//     ChildhoodVector.PSI,
+//     SkillKey.ART_VISUAL_CARVING,
+// );
+//
+// let year;
+//
+// for (let i = 0; i < 16; ++i) {
+//     year = new LifeYear(
+//         new SkillList({
+//             [SkillKey.SERVICE_TRADE]: 0.5,
+//             [SkillKey.CRAFTING_BONE_CARVING]: 0.2,
+//             [SkillKey.COMBAT_BOW]: 0.2,
+//             [SkillKey.APPRAISAL]: 0.1,
+//         }),
+//         [],
+//         HomeRegionKey.TUNDRA_COAST,
+//     );
+//     char.addLifeYear(year);
+// }
+//
+// char.invalidate();
 
 
 printChar(char);

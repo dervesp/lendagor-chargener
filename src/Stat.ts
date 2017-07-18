@@ -12,7 +12,17 @@ export enum StatKey {
     PSI_CON,
 }
 
-export const StatKeys = () => Object.keys(StatKey).map((keyIndex) => StatKey[keyIndex] as StatKey);
+export const StatKeys = () => [
+    StatKey.PHY_STR,
+    StatKey.PHY_DEX,
+    StatKey.PHY_CON,
+    StatKey.ETH_STR,
+    StatKey.ETH_DEX,
+    StatKey.ETH_CON,
+    StatKey.PSI_STR,
+    StatKey.PSI_DEX,
+    StatKey.PSI_CON,
+];
 
 export type StatInfo = NumberInfo<StatKey>;
 export class StatList extends DefaultValueNumberList<StatKey> {

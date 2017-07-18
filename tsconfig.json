@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "amd",
     "target": "es6",
-    "sourceMap": true
+    "sourceMap": true,
+    "outFile": "./bin/build/build.js"
   },
   "exclude": [
     "node_modules"
