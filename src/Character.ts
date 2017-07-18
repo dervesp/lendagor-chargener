@@ -98,10 +98,14 @@ export class Character {
                 return (this._stats.getItem(statKey) - NORMAL_STAT_MIN_VALUE) * skillStatValue;
             });
             const skillSum = skillStats.reduce((result: number, value: number) => (result + value), 0);
-            const isBouns = (skillSum > 0);
-            return isBouns
-                ? WorldSeed.statToSkillModifierBonusMagicFn(Math.abs(skillSum))
-                : WorldSeed.statToSkillModifierPenaltyMagicFn(Math.abs(skillSum));
+            if (skillSum > 0) {
+                const skillBonus = WorldSeed.statToSkillModifierBonusMagicFn(Math.abs(skillSum));
+                const skillMaxBonus = WorldSeed.skillModifierMaxValueMagicFn(realSkillValue);
+                return Math.min(skillBonus, skillMaxBonus);
+            }
+            else {
+                return WorldSeed.statToSkillModifierPenaltyMagicFn(Math.abs(skillSum));
+            }
         })
     }
 }

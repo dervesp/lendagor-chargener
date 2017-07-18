@@ -9,6 +9,10 @@ export namespace WorldSeed {
         return Math.pow(value, 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1;
     }
 
+    export function skillModifierMaxValueMagicFn(value: number) {
+        return Math.pow(value, 1 / NUMBER_POW_1) + NUMBER_POW_2;
+    }
+
     export function statToSkillModifierBonusMagicFn(value: number) {
         return Math.pow(value / NUMBER_POW_3, NUMBER_POW_1);
     }

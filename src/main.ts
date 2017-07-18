@@ -7,18 +7,22 @@ import {LifeYear} from "./LifeYear";
 import {NumberList} from "./list/NumberList";
 import {StatKey, StatKeys} from "./Stat";
 
-function printNumberList<K>(list: NumberList<K>, keyInfos: [K, string][], groupName: string) {
+function printNumberList<K>(list: NumberList<K>, keyInfos: [K, string, boolean][], groupName: string) {
     console.group(groupName);
     for (const keyInfo of keyInfos) {
-        console.log(`${keyInfo[1]}: ${list.getItem(keyInfo[0])}`);
+        console.log(`%c${keyInfo[1]}: ${list.getItem(keyInfo[0])}`, keyInfo[2] ? `color: #868686` : ``);
     }
     console.groupEnd();
 }
 
 function printCharacter(character: Character, name: string) {
     console.group(name);
-    printNumberList(character.skills(), SkillKeys().map((key) => [key, SkillKey[key]] as [SkillKey, string]), "Skills");
-    printNumberList(character.stats(), StatKeys().map((key) => [key, StatKey[key]] as [StatKey, string]), "Stats");
+    printNumberList(character.skills(), SkillKeys().map((key) => {
+        return [key, SkillKey[key], ((<any>character)._skills.getItem(key) == 0)] as [SkillKey, string, boolean]
+    }), "Skills");
+    printNumberList(character.stats(), StatKeys().map((key) => {
+        return [key, StatKey[key], false] as [StatKey, string, boolean]
+    }), "Stats");
     console.groupEnd();
 }
 
