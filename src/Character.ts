@@ -5,6 +5,7 @@ import {VectorKey} from "./ChildhoodVector";
 import {LifeYear} from "./LifeYear";
 import {ParentalLineageKey, ParentalLineages} from "./ParentalLineage";
 import {WorldSeed} from "./WorldSeed";
+import {SkillTagKeys} from "./list/SkillTag";
 
 const NORMAL_STAT_MIN_VALUE = 12;
 
@@ -12,6 +13,7 @@ export class Character {
     private _stats: StatList = null;
     private _skills: SkillList = null;
     private _skillModifiers: SkillList = null;
+    private _adjacentSkillModifiers: SkillList = null;
 
     private _childhoodHomeRegionKey: HomeRegionKey = null;
     private _childhoodParentalLineageKey: ParentalLineageKey = null;
@@ -32,16 +34,18 @@ export class Character {
     }
 
     invalidate() {
-        this._skills = new SkillList([], 0);
         this._stats = new StatList([], 10);
+        this._skills = new SkillList([], 0);
+        this._adjacentSkillModifiers = new SkillList([], 0);
 
         this._invalidateChildhood();
         this._invalidateLife();
         this._invalidateSkillModifiers();
+        this._invalidateAdjacentSkillModifiers();
     }
 
     skills(): SkillList {
-        return this._skills.addList(this._skillModifiers).map(((value) => Math.round(value)));
+        return this._skills.addList(this._skillModifiers).addList(this._adjacentSkillModifiers).map(((value) => Math.round(value)));
     }
 
     stats(): StatList {
@@ -106,6 +110,34 @@ export class Character {
             else {
                 return WorldSeed.statToSkillModifierPenaltyMagicFn(Math.abs(skillSum));
             }
-        })
+        });
+    }
+
+    private _invalidateAdjacentSkillModifiers() {
+        this._adjacentSkillModifiers = this._skills.map((currentSkillValue: number, currentSkillKey: SkillKey) => {
+            const currentSkill = Skills.get(currentSkillKey);
+            let resultAdjacentSkillModifier = 0;
+            for (const skillKey of SkillKeys()) {
+                if (skillKey == currentSkillKey) {
+                    continue;
+                }
+                const skill = Skills.get(skillKey);
+                const skillValue = this._skills.getItem(skillKey);
+                let minSum = 0;
+                let maxSum = 0;
+                for (const skillTagKey of SkillTagKeys()) {
+                    const currentSkillTagValue = currentSkill.skillTags().getItem(skillTagKey);
+                    const skillTagValue = skill.skillTags().getItem(skillTagKey);
+                    minSum += Math.min(currentSkillTagValue, skillTagValue);
+                    maxSum += Math.max(currentSkillTagValue, skillTagValue);
+                }
+                if (minSum == 0 || maxSum == 0) {
+                    continue;
+                }
+                const adjacentSkillModifier = (minSum / maxSum) * skillValue;
+                resultAdjacentSkillModifier += adjacentSkillModifier;
+            }
+            return resultAdjacentSkillModifier;
+        });
     }
 }

@@ -7,21 +7,37 @@ import {LifeYear} from "./LifeYear";
 import {NumberList} from "./list/NumberList";
 import {StatKey, StatKeys} from "./Stat";
 
-function printNumberList<K>(list: NumberList<K>, keyInfos: [K, string, boolean][], groupName: string) {
+function printNumberList<K>( keyInfos: [K, string, (key: K) => string, boolean][], groupName: string) {
     console.group(groupName);
     for (const keyInfo of keyInfos) {
-        console.log(`%c${keyInfo[1]}: ${list.getItem(keyInfo[0])}`, keyInfo[2] ? `color: #868686` : ``);
+        console.log(`%c${keyInfo[1]}: ${keyInfo[2](keyInfo[0])}`, keyInfo[3] ? `color: #868686` : ``);
     }
     console.groupEnd();
 }
 
 function printCharacter(character: Character, name: string) {
     console.group(name);
-    printNumberList(character.skills(), SkillKeys().map((key) => {
-        return [key, SkillKey[key], ((<any>character)._skills.getItem(key) == 0)] as [SkillKey, string, boolean]
+    printNumberList(SkillKeys().map((key) => {
+        return [
+            key,
+            SkillKey[key],
+            (currKey: SkillKey) => {
+                const baseSkill = Math.round((<any>character)._skills.getItem(currKey) * 10) / 10;
+                const skillModifier = Math.round((<any>character)._skillModifiers.getItem(currKey) * 10) / 10;
+                const adjacentSkillModifier = Math.round((<any>character)._adjacentSkillModifiers.getItem(currKey) * 10) / 10;
+                const resultSkillValue = character.skills().getItem(currKey);
+                return `${resultSkillValue} (${baseSkill} + ${skillModifier} + ${adjacentSkillModifier})`;
+            },
+            ((<any>character)._skills.getItem(key) == 0)
+        ] as [SkillKey, string, (key: SkillKey) => string, boolean]
     }), "Skills");
-    printNumberList(character.stats(), StatKeys().map((key) => {
-        return [key, StatKey[key], false] as [StatKey, string, boolean]
+    printNumberList(StatKeys().map((key) => {
+        return [
+            key,
+            StatKey[key],
+            (currKey: StatKey) => ("" + character.stats().getItem(currKey)),
+            false
+        ] as [StatKey, string, (key: StatKey) => string, boolean]
     }), "Stats");
     console.groupEnd();
 }
