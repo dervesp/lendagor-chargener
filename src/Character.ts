@@ -34,7 +34,9 @@ export class Character {
     }
 
     invalidate() {
-        this._stats = new StatList([], 10);
+        this._stats = new StatList([
+
+        ], 10);
         this._skills = new SkillList([], 0);
         this._adjacentSkillModifiers = new SkillList([], 0);
 
@@ -105,7 +107,9 @@ export class Character {
             if (skillSum > 0) {
                 const skillBonus = WorldSeed.statToSkillModifierBonusMagicFn(Math.abs(skillSum));
                 const skillMaxBonus = WorldSeed.skillModifierMaxValueMagicFn(realSkillValue);
-                return Math.min(skillBonus, skillMaxBonus);
+                return Skills.get(skillKey).useUnlimitedStatBonus()
+                    ? skillBonus
+                    : Math.min(skillBonus, skillMaxBonus);
             }
             else {
                 return WorldSeed.statToSkillModifierPenaltyMagicFn(Math.abs(skillSum));

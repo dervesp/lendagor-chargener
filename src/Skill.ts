@@ -98,11 +98,13 @@ export class Skill {
     private _key: SkillKey;
     private _stats: StatList;
     private _skillTags: SkillTagList;
+    private _useUnlimitedStatBonus: boolean;
 
-    constructor(key: SkillKey, stats: StatList, skillTags: SkillTagList) {
+    constructor(key: SkillKey, stats: StatList, skillTags: SkillTagList, useUnlimitedStatBonus: boolean) {
         this._key = key;
         this._stats = stats;
         this._skillTags = skillTags;
+        this._useUnlimitedStatBonus = useUnlimitedStatBonus;
     }
 
     key(): SkillKey {
@@ -115,6 +117,10 @@ export class Skill {
 
     skillTags(): SkillTagList {
         return this._skillTags;
+    }
+
+    useUnlimitedStatBonus(): boolean {
+        return this._useUnlimitedStatBonus;
     }
 }
 
@@ -132,31 +138,31 @@ export class Skills {
 
         this._addSkill(SkillKey.PHY_STR_ROLL_BONUS, [
             [StatKey.PHY_STR, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.PHY_DEX_ROLL_BONUS, [
             [StatKey.PHY_DEX, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.PHY_CON_ROLL_BONUS, [
             [StatKey.PHY_CON, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.ETH_STR_ROLL_BONUS, [
             [StatKey.ETH_STR, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.ETH_DEX_ROLL_BONUS, [
             [StatKey.ETH_DEX, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.ETH_CON_ROLL_BONUS, [
             [StatKey.ETH_CON, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.PSI_STR_ROLL_BONUS, [
             [StatKey.PSI_STR, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.PSI_DEX_ROLL_BONUS, [
             [StatKey.PSI_DEX, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.PSI_CON_ROLL_BONUS, [
             [StatKey.PSI_CON, 1],
-        ], []);
+        ], [], true);
         this._addSkill(SkillKey.COMBAT_BOW, [
             [StatKey.PHY_STR, 0.3],
             [StatKey.PHY_DEX, 0.4],
@@ -335,11 +341,11 @@ export class Skills {
         ], []);
     }
 
-    private static _addSkill(key: SkillKey, statInfos: StatInfo[], skillTagInfos: SkillTagInfo[]) {
+    private static _addSkill(key: SkillKey, statInfos: StatInfo[], skillTagInfos: SkillTagInfo[], useUnlimitedStatBonus: boolean = false) {
         if (this._map.has(key)) {
             throw new Error(`duplicate skill in skillStorage: [${key}]`);
         }
-        this._map.set(key, new Skill(key, new StatList(statInfos, 0), new SkillTagList(skillTagInfos, 0)));
+        this._map.set(key, new Skill(key, new StatList(statInfos, 0), new SkillTagList(skillTagInfos, 0), useUnlimitedStatBonus));
     }
 }
 
