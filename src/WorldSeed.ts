@@ -5,8 +5,10 @@ export namespace WorldSeed {
     const NUMBER_POW_3 = Math.pow(NUMBER_POW_2, NUMBER);
     const NUMBER_POW_4 = Math.pow(NUMBER_POW_3, NUMBER);
 
-    export function skillToStatMagicFn(value: number) {
-        return Math.pow(value, 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1;
+    export function skillToStatMagicFn(value: number): number {
+        return (value > 0)
+            ? Math.pow(value, 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1
+            : -Math.pow(Math.abs(value), 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1;
     }
 
     export function skillModifierMaxValueMagicFn(value: number): number {
@@ -22,7 +24,7 @@ export namespace WorldSeed {
     }
 
     export function skillDecreaseModifierMagicFn(value: number): number {
-        return 1 / (Math.pow(value, NUMBER_POW_4) / (Math.pow(48, NUMBER_POW_4) / (NUMBER_POW_1 * 10)) + 1);
+        return NUMBER_POW_2 / (Math.pow(value, NUMBER_POW_3) / Math.pow(12, NUMBER_POW_3) + 1);
     }
 
     export function stateDecreaseModifierMagicFn(value: number): number {

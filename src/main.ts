@@ -18,7 +18,8 @@ function printNumberList<K>( keyInfos: [K, string, (key: K) => string, boolean][
 
 function printCharacterParams(character: Character) {
     console.group("Params");
-    console.log(`HEALTH: ${character.paramHp()}/${character.paramHealth()}`);
+    console.log(`HP: ${character.paramHp()}`);
+    console.log(`HEALTH: ${character.paramHealth()}`);
     console.log(`WILLPOWER: ${character.paramWillPower()}`);
     console.groupEnd();
 }
@@ -124,6 +125,13 @@ function createTundraBoneCarver(): Character {
     return character;
 }
 
-printCharacter(createSteppeNoble(), "Steppe noble, 28");
-//printCharacter(createSteppeNoble(30), "Steppe noble, 58");
+printCharacter(createSteppeNoble(-10), "Steppe noble, 18");
+printCharacter(createSteppeNoble(-4), "Steppe noble, 24");
+printCharacter(createSteppeNoble(2), "Steppe noble, 32");
+printCharacter(createSteppeNoble(8), "Steppe noble, 38");
+printCharacter(createSteppeNoble(14), "Steppe noble, 44");
+printCharacter(createSteppeNoble(20), "Steppe noble, 50");
+printCharacter(createSteppeNoble(26), "Steppe noble, 56");
+printCharacter(createSteppeNoble(32), "Steppe noble, 62");
+
 //printCharacter(createTundraBoneCarver(), "Tundra bonecarver, 28");
