@@ -15,8 +15,17 @@ function printNumberList<K>( keyInfos: [K, string, (key: K) => string, boolean][
     console.groupEnd();
 }
 
+
+function printCharacterParams(character: Character) {
+    console.group("Params");
+    console.log(`HEALTH: ${character.paramHp()}/${character.paramHealth()}`);
+    console.log(`WILLPOWER: ${character.paramWillPower()}`);
+    console.groupEnd();
+}
+
 function printCharacter(character: Character, name: string) {
     console.group(name);
+    printCharacterParams(character);
     printNumberList(SkillKeys().map((key) => {
         return [
             key,

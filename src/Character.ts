@@ -6,7 +6,6 @@ import {LifeYear} from "./LifeYear";
 import {ParentalLineageKey, ParentalLineages} from "./ParentalLineage";
 import {WorldSeed} from "./WorldSeed";
 import {SkillTagKeys} from "./list/SkillTag";
-import paramHpMagicFn = WorldSeed.paramHpMagicFn;
 
 const NORMAL_STAT_MIN_VALUE = 12;
 
@@ -27,6 +26,16 @@ export class Character {
 
     private _lifeYears: LifeYear[] = [];
 
+    paramWillPower(): number {
+        return Math.round(this._paramWillPower);
+    }
+    paramHealth(): number {
+        return Math.round(this._paramHealth);
+    }
+    paramHp(): number {
+        return Math.round(this._paramHp);
+    }
+
     setChildhood(homeRegionKey: HomeRegionKey, parentalLineageKey: ParentalLineageKey, vectorKey: VectorKey, choosenSkillKey: SkillKey) {
         this._childhoodHomeRegionKey = homeRegionKey;
         this._childhoodParentalLineageKey = parentalLineageKey;
@@ -39,10 +48,18 @@ export class Character {
     }
 
     invalidate() {
-        this._stats = new StatList([
-
-        ], 10);
-        this._skills = new SkillList([], 0);
+        this._stats = new StatList([], 10);
+        this._skills = new SkillList([
+            [SkillKey.PHY_STR_ROLL_BONUS, 12],
+            [SkillKey.PHY_DEX_ROLL_BONUS, 12],
+            [SkillKey.PHY_CON_ROLL_BONUS, 12],
+            [SkillKey.ETH_STR_ROLL_BONUS, 12],
+            [SkillKey.ETH_DEX_ROLL_BONUS, 12],
+            [SkillKey.ETH_CON_ROLL_BONUS, 12],
+            [SkillKey.PSI_STR_ROLL_BONUS, 12],
+            [SkillKey.PSI_DEX_ROLL_BONUS, 12],
+            [SkillKey.PSI_CON_ROLL_BONUS, 12],
+        ], 0);
         this._adjacentSkillModifiers = new SkillList([], 0);
 
         this._invalidateChildhood();
@@ -101,7 +118,7 @@ export class Character {
         resultYearStats = resultYearStats.map((value: number) => WorldSeed.skillToStatMagicFn(value));
         resultYearStats = resultYearStats.addList(resultYearStatDecreases);
         this._stats = this._stats.addList(resultYearStats);
-        this._skills = this._skills.multiply(WorldSeed.NUMBER);
+        this._skills = this._skills.map(((value: number, key: SkillKey) => (Skills.get(key).isServiceSkill() ? value : value * WorldSeed.NUMBER)));
     }
 
     private _invalidateSkillModifiers() {
@@ -113,7 +130,7 @@ export class Character {
             if (skillSum > 0) {
                 const skillBonus = WorldSeed.statToSkillModifierBonusMagicFn(Math.abs(skillSum));
                 const skillMaxBonus = WorldSeed.skillModifierMaxValueMagicFn(realSkillValue);
-                return Skills.get(skillKey).useUnlimitedStatBonus()
+                return Skills.get(skillKey).isServiceSkill()
                     ? skillBonus
                     : Math.min(skillBonus, skillMaxBonus);
             }
@@ -144,8 +161,7 @@ export class Character {
                 if (minSum == 0 || maxSum == 0) {
                     continue;
                 }
-                const adjacentSkillModifier = (minSum / maxSum) * skillValue;
-                resultAdjacentSkillModifier += adjacentSkillModifier;
+                resultAdjacentSkillModifier += (minSum / maxSum) * skillValue;
             }
             return resultAdjacentSkillModifier;
         });

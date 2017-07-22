@@ -1,9 +1,9 @@
 export namespace WorldSeed {
     export let NUMBER = 1.61803398875;
     const NUMBER_POW_1 = NUMBER;
-    const NUMBER_POW_2 = Math.pow(NUMBER, NUMBER_POW_1);
-    const NUMBER_POW_3 = Math.pow(NUMBER, NUMBER_POW_2);
-    const NUMBER_POW_4 = Math.pow(NUMBER, NUMBER_POW_3);
+    const NUMBER_POW_2 = Math.pow(NUMBER_POW_1, NUMBER);
+    const NUMBER_POW_3 = Math.pow(NUMBER_POW_2, NUMBER);
+    const NUMBER_POW_4 = Math.pow(NUMBER_POW_3, NUMBER);
 
     export function skillToStatMagicFn(value: number) {
         return Math.pow(value, 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1;

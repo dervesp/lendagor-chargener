@@ -102,14 +102,14 @@ export class Skill {
     private _key: SkillKey;
     private _stats: StatList;
     private _skillTags: SkillTagList;
-    private _useUnlimitedStatBonus: boolean;
+    private _isServiceSkill: boolean;
 
-    constructor(key: SkillKey, stats: StatList, skillTags: SkillTagList, useUnlimitedStatBonus: boolean) {
+    constructor(key: SkillKey, stats: StatList, skillTags: SkillTagList, isServiceSkill: boolean) {
         assertEqualNumber(SKILL_STAT_SUM, stats.sum(), `invalid Skill[${SkillKey[key]}] stat sum`);
         this._key = key;
         this._stats = stats;
         this._skillTags = skillTags;
-        this._useUnlimitedStatBonus = useUnlimitedStatBonus;
+        this._isServiceSkill = isServiceSkill;
     }
 
     key(): SkillKey {
@@ -124,8 +124,8 @@ export class Skill {
         return this._skillTags;
     }
 
-    useUnlimitedStatBonus(): boolean {
-        return this._useUnlimitedStatBonus;
+    isServiceSkill(): boolean {
+        return this._isServiceSkill;
     }
 }
 
@@ -343,9 +343,9 @@ export class Skills {
         ], []);
     }
 
-    private static _addSkill(key: SkillKey, statInfos: StatInfo[], skillTagInfos: SkillTagInfo[], useUnlimitedStatBonus: boolean = false) {
+    private static _addSkill(key: SkillKey, statInfos: StatInfo[], skillTagInfos: SkillTagInfo[], isServiceSkill: boolean = false) {
         assert(!this._map.has(key), `duplicate Skill[${Skill[key]}] in SkillMap`);
-        this._map.set(key, new Skill(key, new StatList(statInfos, 0), new SkillTagList(skillTagInfos, 0), useUnlimitedStatBonus));
+        this._map.set(key, new Skill(key, new StatList(statInfos, 0), new SkillTagList(skillTagInfos, 0), isServiceSkill));
     }
 }
 
