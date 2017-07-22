@@ -1,4 +1,4 @@
-import {List, ItemInfo} from "./List";
+import {ItemInfo} from "./List";
 
 export type NumberInfo<K> = [K, number];
 export class NumberList<K> {
@@ -103,5 +103,11 @@ export class NumberList<K> {
     multiply(multiplier: number): NumberList<K> {
         const mapFn = (value: number, key: K) => (value * multiplier);
         return this.map(mapFn);
+    }
+
+    sum(): number {
+        return this.reduce((result: number, value: number) => {
+            return result + value;
+        }, 0);
     }
 }

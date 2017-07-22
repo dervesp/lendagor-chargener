@@ -1,5 +1,6 @@
 import {DefaultValueNumberList} from "./DefaultValueNumberList";
 import {NumberInfo} from "./NumberList";
+
 export enum SkillTagKey {
     WEAPON_1_HAND,
     WEAPON_2_HAND,

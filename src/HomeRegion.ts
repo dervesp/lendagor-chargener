@@ -1,6 +1,6 @@
-import {StatInfo, StatKey} from "./Stat";
 import {VectorKey} from "./ChildhoodVector";
 import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue} from "./Skill";
+import {assert} from "./utils/Assert";
 export enum HomeRegionKey {
     WILD_STEPPE,
     STEPPE_TOWNS,
@@ -38,9 +38,7 @@ export class HomeRegions {
     private static _map: Map<HomeRegionKey, HomeRegion> = new Map<HomeRegionKey, HomeRegion>();
 
     static get(key: HomeRegionKey): HomeRegion {
-        if (!this._map.has(key)) {
-            throw new Error(`undefined HomeRegion [${key}] in HomeRegionMap`);
-        }
+        assert(this._map.has(key), `undefined HomeRegion[${HomeRegionKey[key]}] in HomeRegionMap`);
         return this._map.get(key);
     }
 
@@ -104,9 +102,7 @@ export class HomeRegions {
     }
 
     private static _addHomeRegion(key: HomeRegionKey, skillModifierInfos: SkillInfo[], baseSkillInfos: SkillInfo[], childhoodVectorSkillInfos: [VectorKey, SkillInfo[]][]) {
-        if (this._map.has(key)) {
-            throw new Error(`duplicate HomeRegion in HomeRegionStorage: [${key}]`);
-        }
+        assert(!this._map.has(key), `duplicate HomeRegion[${HomeRegionKey[key]}] in HomeRegionMap`);
         const skillModifiers = new SkillList(skillModifierInfos, 1);
         const baseSkills = new SkillList(baseSkillInfos, 0);
         const childhoodVectorSkills = childhoodVectorSkillInfos.map((info) => [info[0], new SkillList(info[1], 0)] as [VectorKey, SkillList]);

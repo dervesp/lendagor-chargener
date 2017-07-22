@@ -1,5 +1,7 @@
 import {NumberInfo} from "./list/NumberList";
 import {DefaultValueNumberList} from "./list/DefaultValueNumberList";
+import {assert} from "./utils/Assert";
+
 export enum StatKey {
     PHY_STR = 11,
     PHY_DEX,
@@ -23,6 +25,8 @@ export const StatKeys = () => [
     StatKey.PSI_DEX,
     StatKey.PSI_CON,
 ];
+
+assert(Object.keys(StatKey).length / 2 == StatKeys().length, "unexpected StatKeys length");
 
 export type StatInfo = NumberInfo<StatKey>;
 export class StatList extends DefaultValueNumberList<StatKey> {

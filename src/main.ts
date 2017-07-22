@@ -4,8 +4,8 @@ import {ParentalLineageKey} from "./ParentalLineage";
 import {VectorKey} from "./ChildhoodVector";
 import {SkillKey, SkillKeys, SkillList} from "./Skill";
 import {LifeYear} from "./LifeYear";
-import {NumberList} from "./list/NumberList";
 import {StatKey, StatKeys} from "./Stat";
+import {StateKey, StateList} from "./State";
 
 function printNumberList<K>( keyInfos: [K, string, (key: K) => string, boolean][], groupName: string) {
     console.group(groupName);
@@ -55,7 +55,10 @@ function createSteppeNoble(additionalYears: number = 0): Character {
             [SkillKey.COMBAT_SABER, 0.1],
             [SkillKey.COMBAT_BOW, 0.1],
         ], 0);
-        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills));
+        const states = new StateList([
+            [StateKey.FAVORITE_LABORS, 1],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills, states));
     }
 
     for (let i = 0; i < 2; ++i) {
@@ -66,7 +69,11 @@ function createSteppeNoble(additionalYears: number = 0): Character {
             [SkillKey.COMBAT_BOW, 0.1],
             [SkillKey.KNOWLEDGE_LIFE_STEPPE, 0.3],
         ], 0);
-        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills));
+        const states = new StateList([
+            [StateKey.FAVORITE_LABORS, 0.3],
+            [StateKey.SERVICE_TO_IDEALS, 0.7],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills, states));
     }
 
     for (let i = 0; i < 10 + additionalYears; ++i) {
@@ -76,7 +83,11 @@ function createSteppeNoble(additionalYears: number = 0): Character {
             [SkillKey.COMBAT_SABER, 0.3],
             [SkillKey.COMBAT_BOW, 0.1],
         ], 0);
-        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills));
+        const states = new StateList([
+            [StateKey.WAR, 0.7],
+            [StateKey.ROUTINE, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WILD_STEPPE, skills, states));
     }
 
     character.invalidate();
@@ -95,7 +106,9 @@ function createTundraBoneCarver(): Character {
              [SkillKey.COMBAT_BOW, 0.2],
              [SkillKey.APPRAISAL, 0.1],
         ], 0);
-        character.addLifeYear(new LifeYear(HomeRegionKey.TUNDRA_COAST, skills));
+        const states = new StateList([
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.TUNDRA_COAST, skills, states));
     }
 
     character.invalidate();

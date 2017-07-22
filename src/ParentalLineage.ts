@@ -1,6 +1,5 @@
-import {StatInfo, StatKey} from "./Stat";
-import {VectorKey} from "./ChildhoodVector";
-import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue} from "./Skill";
+import {SkillInfo, SkillKey, SkillList, SkillValue} from "./Skill";
+import {assert} from "./utils/Assert";
 export enum ParentalLineageKey {
     STEPPE_NOBLE,
     ARTISAN_BONECARVER,
@@ -28,9 +27,7 @@ export class ParentalLineages {
     private static _map: Map<ParentalLineageKey, ParentalLineage> = new Map<ParentalLineageKey, ParentalLineage>();
 
     static get(key: ParentalLineageKey): ParentalLineage {
-        if (!this._map.has(key)) {
-            throw new Error(`undefined ParentalLineage [${key}] in ParentalLineageMap`);
-        }
+        assert(this._map.has(key), `undefined ParentalLineage[${ParentalLineage[key]}] in ParentalLineageMap`);
         return this._map.get(key);
     }
 
@@ -60,9 +57,7 @@ export class ParentalLineages {
     }
 
     private static _addParentalLineage(key: ParentalLineageKey, skillInfos: SkillInfo[]) {
-        if (this._map.has(key)) {
-            throw new Error(`duplicate ParentalLineage in ParentalLineageStorage: [${key}]`);
-        }
+        assert(!this._map.has(key), `duplicate ParentalLineage[${ParentalLineage[key]}] in ParentalLineageMap`);
         this._map.set(key, new ParentalLineage(key, new SkillList(skillInfos, 0)));
     }
 }

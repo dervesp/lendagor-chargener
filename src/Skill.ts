@@ -2,6 +2,21 @@ import {NumberInfo} from "./list/NumberList";
 import {StatInfo, StatKey, StatList} from "./Stat";
 import {DefaultValueNumberList} from "./list/DefaultValueNumberList";
 import {SkillTagInfo, SkillTagKey, SkillTagList} from "./list/SkillTag";
+import {assert, assertEqualNumber} from "./utils/Assert";
+
+export const SkillModifier = {
+    PENALTY_2: 0.8,
+    PENALTY_1: 0.9,
+    NORMAL: 1,
+    BONUS_1: 1.1,
+    BONUS_2: 1.2,
+};
+
+export const SkillValue = {
+    SMALL: 1,
+    NORMAL: 2,
+    LARGE: 3,
+};
 
 export enum SkillKey {
     PHY_STR_ROLL_BONUS=11,
@@ -38,20 +53,6 @@ export enum SkillKey {
     SERVICE_TRADE,
 }
 
-export const SkillModifier = {
-    PENALTY_2: 0.8,
-    PENALTY_1: 0.9,
-    NORMAL: 1,
-    BONUS_1: 1.1,
-    BONUS_2: 1.2,
-};
-
-export const SkillValue = {
-    SMALL: 1,
-    NORMAL: 2,
-    LARGE: 3,
-};
-
 export const SkillKeys = () => [
     SkillKey.PHY_STR_ROLL_BONUS,
     SkillKey.PHY_DEX_ROLL_BONUS,
@@ -87,6 +88,8 @@ export const SkillKeys = () => [
     SkillKey.SERVICE_TRADE,
 ];
 
+assert(Object.keys(SkillKey).length / 2 == SkillKeys().length, "unexpected SkillKeys length");
+
 export type SkillInfo = NumberInfo<SkillKey>;
 export class SkillList extends DefaultValueNumberList<SkillKey> {
     constructor(skillInfos: SkillInfo[], defaultValue: number) {
@@ -94,6 +97,7 @@ export class SkillList extends DefaultValueNumberList<SkillKey> {
     }
 }
 
+const SKILL_STAT_SUM = 1;
 export class Skill {
     private _key: SkillKey;
     private _stats: StatList;
@@ -101,6 +105,7 @@ export class Skill {
     private _useUnlimitedStatBonus: boolean;
 
     constructor(key: SkillKey, stats: StatList, skillTags: SkillTagList, useUnlimitedStatBonus: boolean) {
+        assertEqualNumber(SKILL_STAT_SUM, stats.sum(), `invalid Skill[${SkillKey[key]}] stat sum`);
         this._key = key;
         this._stats = stats;
         this._skillTags = skillTags;
@@ -128,14 +133,11 @@ export class Skills {
     private static _map: Map<SkillKey, Skill> = new Map<SkillKey, Skill>();
 
     static get(key: SkillKey): Skill {
-        if (!this._map.has(key)) {
-            throw new Error(`undefined skill [${key}] in SkillMap`);
-        }
+        assert(this._map.has(key), `undefined Skill[${SkillKey[key]}] in SkillMap`);
         return this._map.get(key);
     }
 
     static init() {
-
         this._addSkill(SkillKey.PHY_STR_ROLL_BONUS, [
             [StatKey.PHY_STR, 1],
         ], [], true);
@@ -342,9 +344,7 @@ export class Skills {
     }
 
     private static _addSkill(key: SkillKey, statInfos: StatInfo[], skillTagInfos: SkillTagInfo[], useUnlimitedStatBonus: boolean = false) {
-        if (this._map.has(key)) {
-            throw new Error(`duplicate skill in skillStorage: [${key}]`);
-        }
+        assert(!this._map.has(key), `duplicate Skill[${Skill[key]}] in SkillMap`);
         this._map.set(key, new Skill(key, new StatList(statInfos, 0), new SkillTagList(skillTagInfos, 0), useUnlimitedStatBonus));
     }
 }

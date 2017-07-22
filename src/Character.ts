@@ -1,11 +1,12 @@
 import {StatKey, StatList} from "./Stat";
-import {Skill, SkillKey, SkillKeys, SkillList, Skills} from "./Skill";
+import {SkillKey, SkillKeys, SkillList, Skills} from "./Skill";
 import {HomeRegionKey, HomeRegions} from "./HomeRegion";
 import {VectorKey} from "./ChildhoodVector";
 import {LifeYear} from "./LifeYear";
 import {ParentalLineageKey, ParentalLineages} from "./ParentalLineage";
 import {WorldSeed} from "./WorldSeed";
 import {SkillTagKeys} from "./list/SkillTag";
+import paramHpMagicFn = WorldSeed.paramHpMagicFn;
 
 const NORMAL_STAT_MIN_VALUE = 12;
 
@@ -14,6 +15,10 @@ export class Character {
     private _skills: SkillList = null;
     private _skillModifiers: SkillList = null;
     private _adjacentSkillModifiers: SkillList = null;
+
+    private _paramWillPower: number = NaN;
+    private _paramHealth: number = NaN;
+    private _paramHp: number = NaN;
 
     private _childhoodHomeRegionKey: HomeRegionKey = null;
     private _childhoodParentalLineageKey: ParentalLineageKey = null;
@@ -44,6 +49,7 @@ export class Character {
         this._invalidateLife();
         this._invalidateSkillModifiers();
         this._invalidateAdjacentSkillModifiers();
+        this._invalidateParams();
     }
 
     skills(): SkillList {
@@ -143,5 +149,21 @@ export class Character {
             }
             return resultAdjacentSkillModifier;
         });
+    }
+
+    private _invalidateParams() {
+        const phyStr = this.stats().getItem(StatKey.PHY_STR);
+        const phyDex = this.stats().getItem(StatKey.PHY_DEX);
+        const phyCon = this.stats().getItem(StatKey.PHY_CON);
+        const ethStr = this.stats().getItem(StatKey.ETH_STR);
+        const ethDex = this.stats().getItem(StatKey.ETH_DEX);
+        const ethCon = this.stats().getItem(StatKey.ETH_CON);
+        const psiStr = this.stats().getItem(StatKey.PSI_STR);
+        const psiDex = this.stats().getItem(StatKey.PSI_DEX);
+        const psiCon = this.stats().getItem(StatKey.PSI_CON);
+
+        this._paramWillPower = WorldSeed.paramWillPowerMagicFn(ethStr, ethCon);
+        this._paramHealth = WorldSeed.paramHealthMagicFn(phyStr, phyDex, phyCon);
+        this._paramHp = WorldSeed.paramHpMagicFn(this._paramHealth, this._paramWillPower);
     }
 }
