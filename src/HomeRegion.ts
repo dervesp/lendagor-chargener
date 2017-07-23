@@ -1,4 +1,4 @@
-import {VectorKey} from "./ChildhoodVector";
+import {getVectorStats, VectorKey} from "./ChildhoodVector";
 import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue} from "./Skill";
 import {assert} from "./utils/Assert";
 export enum HomeRegionKey {
@@ -6,6 +6,7 @@ export enum HomeRegionKey {
     STEPPE_TOWNS,
     RIVER_DELTA,
     TUNDRA_COAST,
+    WARM_SEASIDE_VALLEYS,
 }
 
 export class HomeRegion {
@@ -31,6 +32,10 @@ export class HomeRegion {
 
     childhoodVectorSkills(childhoodVectorKey: VectorKey) {
         return this._baseSkills.addList(this._childhoodVectorSkillMap.get(childhoodVectorKey));
+    }
+
+    childhoodVectorStats(childhoodVectorKey: VectorKey) {
+        return getVectorStats(childhoodVectorKey);
     }
 }
 
@@ -66,7 +71,7 @@ export class HomeRegions {
                 ]],
                 [VectorKey.PSI, [
                     [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
-                    [SkillKey.APPRAISAL, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LIFE_STEPPE, SkillValue.SMALL],
                 ]],
             ]
@@ -94,8 +99,34 @@ export class HomeRegions {
                 ]],
                 [VectorKey.PSI, [
                     [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
-                    [SkillKey.APPRAISAL, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LIFE_TUNDRA, SkillValue.SMALL],
+                ]],
+            ]
+        );
+        this._addHomeRegion(
+            HomeRegionKey.WARM_SEASIDE_VALLEYS,
+            [
+                [SkillKey.CRAFTING_WINEMAKING, SkillModifier.BONUS_2],
+                [SkillKey.SERVICE_SOMMELIER, SkillModifier.BONUS_2],
+                [SkillKey.ART_MUSIC, SkillModifier.BONUS_1],
+                [SkillKey.GESTICULATION, SkillModifier.BONUS_1],
+            ],
+            [
+                [SkillKey.AGRICULTURE, SkillValue.NORMAL],
+                [SkillKey.GESTICULATION, SkillValue.NORMAL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.LARGE],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.ART_PERFORMANCE_DANCE_PASSION, SkillValue.NORMAL],
+                    [SkillKey.ART_PERFORMANCE_DANCE_SPORTY, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.LARGE],
                 ]],
             ]
         );

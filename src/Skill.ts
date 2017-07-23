@@ -1,7 +1,7 @@
 import {NumberInfo} from "./list/NumberList";
 import {StatInfo, StatKey, StatList} from "./Stat";
 import {DefaultValueNumberList} from "./list/DefaultValueNumberList";
-import {SkillTagInfo, SkillTagKey, SkillTagList} from "./list/SkillTag";
+import {SkillTagInfo, SkillTagKey, SkillTagList} from "./SkillTag";
 import {assert, assertEqualNumber} from "./utils/Assert";
 
 export const SkillModifier = {
@@ -30,18 +30,28 @@ export enum SkillKey {
     PSI_CON_ROLL_BONUS,
     COMBAT_BOW=100,
     COMBAT_1H_SWORD,
+    COMBAT_RAPIER,
     COMBAT_WHIP,
+    COMBAT_LANCE,
     COMBAT_SABER,
     RIDING,
-    CRAFTING_LEATHERWORKING,
+    CRAFTING_LEATHERWORKING=200,
+    CRAFTING_WINEMAKING,
     AGRICULTURE,
     KNOWLEDGE_LIFE_STEPPE,
     KNOWLEDGE_LIFE_TUNDRA,
+    KNOWLEDGE_ETIQUETTE,
+    KNOWLEDGE_WARFARE,
     ART_MUSIC,
+    ART_POETRY,
     ART_VISUAL_CARVING,
+    ART_PERFORMANCE_DANCE_CALM,
+    ART_PERFORMANCE_DANCE_PASSION,
+    ART_PERFORMANCE_DANCE_SPORTY,
     ORATORY,
+    GESTICULATION,
     KNOWLEDGE_LEGENDS,
-    APPRAISAL,
+    KNOWLEDGE_APPRAISAL,
     LEADERSHIP,
     COMBAT_SPEAR,
     KNOWLEDGE_LAW,
@@ -51,6 +61,8 @@ export enum SkillKey {
     CRAFTING_BLACKSMITHING,
     CRAFTING_BONE_CARVING,
     SERVICE_TRADE,
+    SERVICE_SOMMELIER,
+    TRAINING_CHILDISH_SPORTS,
 }
 
 export const SkillKeys = () => [
@@ -67,15 +79,24 @@ export const SkillKeys = () => [
     SkillKey.COMBAT_BOW,
     SkillKey.COMBAT_1H_SWORD,
     SkillKey.COMBAT_SABER,
+    SkillKey.COMBAT_RAPIER,
+    SkillKey.COMBAT_LANCE,
     SkillKey.CRAFTING_LEATHERWORKING,
     SkillKey.AGRICULTURE,
     SkillKey.KNOWLEDGE_LIFE_STEPPE,
     SkillKey.KNOWLEDGE_LIFE_TUNDRA,
+    SkillKey.KNOWLEDGE_ETIQUETTE,
+    SkillKey.KNOWLEDGE_WARFARE,
     SkillKey.ART_MUSIC,
+    SkillKey.ART_POETRY,
     SkillKey.ART_VISUAL_CARVING,
+    SkillKey.ART_PERFORMANCE_DANCE_CALM,
+    SkillKey.ART_PERFORMANCE_DANCE_PASSION,
+    SkillKey.ART_PERFORMANCE_DANCE_SPORTY,
     SkillKey.ORATORY,
+    SkillKey.GESTICULATION,
     SkillKey.KNOWLEDGE_LEGENDS,
-    SkillKey.APPRAISAL,
+    SkillKey.KNOWLEDGE_APPRAISAL,
     SkillKey.COMBAT_WHIP,
     SkillKey.LEADERSHIP,
     SkillKey.COMBAT_SPEAR,
@@ -85,7 +106,10 @@ export const SkillKeys = () => [
     SkillKey.HUNTING,
     SkillKey.CRAFTING_BLACKSMITHING,
     SkillKey.CRAFTING_BONE_CARVING,
+    SkillKey.CRAFTING_WINEMAKING,
     SkillKey.SERVICE_TRADE,
+    SkillKey.SERVICE_SOMMELIER,
+    SkillKey.TRAINING_CHILDISH_SPORTS,
 ];
 
 assert(Object.keys(SkillKey).length / 2 == SkillKeys().length, "unexpected SkillKeys length");
@@ -199,6 +223,38 @@ export class Skills {
             [SkillTagKey.WEAPON_TYPE_RANGED, 0],
             [SkillTagKey.WEAPON_TYPE_THROWING, 0],
         ]);
+        this._addSkill(SkillKey.COMBAT_RAPIER, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.5],
+            [StatKey.PHY_CON, 0.4],
+        ], [
+            [SkillTagKey.WEAPON_1_HAND, 1],
+            [SkillTagKey.WEAPON_2_HAND, 0],
+            [SkillTagKey.WEAPON_BALANCED, 1],
+            [SkillTagKey.WEAPON_UNBALANCED, 0],
+            [SkillTagKey.WEAPON_TYPE_BLADE, 1],
+            [SkillTagKey.WEAPON_TYPE_PYLON_SHOCK, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_STICHING, 0],
+            [SkillTagKey.WEAPON_TYPE_FLEXIBLE, 0],
+            [SkillTagKey.WEAPON_TYPE_RANGED, 0],
+            [SkillTagKey.WEAPON_TYPE_THROWING, 0],
+        ]);
+        this._addSkill(SkillKey.COMBAT_LANCE, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.6],
+        ], [
+            [SkillTagKey.WEAPON_1_HAND, 1],
+            [SkillTagKey.WEAPON_2_HAND, 0],
+            [SkillTagKey.WEAPON_BALANCED, 1],
+            [SkillTagKey.WEAPON_UNBALANCED, 0],
+            [SkillTagKey.WEAPON_TYPE_BLADE, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_SHOCK, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_STICHING, 1],
+            [SkillTagKey.WEAPON_TYPE_FLEXIBLE, 0],
+            [SkillTagKey.WEAPON_TYPE_RANGED, 0],
+            [SkillTagKey.WEAPON_TYPE_THROWING, 0],
+        ]);
         this._addSkill(SkillKey.COMBAT_SABER, [
             [StatKey.PHY_STR, 0.3],
             [StatKey.PHY_DEX, 0.4],
@@ -251,6 +307,14 @@ export class Skills {
             [StatKey.PHY_CON, 0.3],
             [StatKey.ETH_CON, 0.2],
         ], []);
+        this._addSkill(SkillKey.CRAFTING_WINEMAKING, [
+            [StatKey.PHY_CON, 0.1],
+            [StatKey.ETH_STR, 0.1],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_DEX, 0.2],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
         this._addSkill(SkillKey.AGRICULTURE, [
             [StatKey.PHY_CON, 0.6],
             [StatKey.ETH_CON, 0.2],
@@ -275,25 +339,65 @@ export class Skills {
             [StatKey.ETH_DEX, 0.3],
             [StatKey.ETH_CON, 0.3],
         ], []);
+        this._addSkill(SkillKey.ART_POETRY, [
+            [StatKey.ETH_STR, 0.5],
+            [StatKey.ETH_DEX, 0.4],
+            [StatKey.ETH_CON, 0.1],
+        ], []);
         this._addSkill(SkillKey.ART_VISUAL_CARVING, [
             [StatKey.PHY_DEX, 0.1],
             [StatKey.ETH_STR, 0.5],
             [StatKey.ETH_DEX, 0.3],
             [StatKey.ETH_CON, 0.1],
         ], []);
+        this._addSkill(SkillKey.ART_PERFORMANCE_DANCE_CALM, [
+            [StatKey.PHY_DEX, 0.2],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_DEX, 0.3],
+            [StatKey.ETH_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.ART_PERFORMANCE_DANCE_PASSION, [
+            [StatKey.PHY_DEX, 0.2],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_STR, 0.5],
+            [StatKey.ETH_DEX, 0.1],
+        ], []);
+        this._addSkill(SkillKey.ART_PERFORMANCE_DANCE_SPORTY, [
+            [StatKey.PHY_DEX, 0.4],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_STR, 0.2],
+            [StatKey.ETH_CON, 0.1],
+        ], []);
         this._addSkill(SkillKey.ORATORY, [
             [StatKey.ETH_STR, 0.5],
             [StatKey.ETH_DEX, 0.3],
             [StatKey.ETH_CON, 0.2],
-        ], []);
+        ], [
+            [SkillTagKey.COMMUNICATION, 1],
+        ]);
+        this._addSkill(SkillKey.GESTICULATION, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.ETH_STR, 0.7],
+            [StatKey.ETH_DEX, 0.2],
+        ], [
+            [SkillTagKey.COMMUNICATION, 1],
+        ]);
         this._addSkill(SkillKey.KNOWLEDGE_LEGENDS, [
             [StatKey.PSI_STR, 0.8],
             [StatKey.PSI_CON, 0.2],
         ], []);
-        this._addSkill(SkillKey.APPRAISAL, [
-            [StatKey.PSI_STR, 0.6],
-            [StatKey.PSI_DEX, 0.3],
-            [StatKey.PSI_CON, 0.1],
+        this._addSkill(SkillKey.KNOWLEDGE_ETIQUETTE, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_WARFARE, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_APPRAISAL, [
+            [StatKey.PSI_STR, 0.7],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.2],
         ], []);
         this._addSkill(SkillKey.LEADERSHIP, [
             [StatKey.ETH_STR, 0.5],
@@ -340,6 +444,20 @@ export class Skills {
             [StatKey.ETH_STR, 0.3],
             [StatKey.ETH_DEX, 0.2],
             [StatKey.PSI_DEX, 0.5],
+        ], []);
+        this._addSkill(SkillKey.SERVICE_SOMMELIER, [
+            [StatKey.ETH_STR, 0.1],
+            [StatKey.ETH_DEX, 0.5],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.TRAINING_CHILDISH_SPORTS, [
+            [StatKey.PHY_STR, 0.2],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_STR, 0.1],
+            [StatKey.ETH_DEX, 0.1],
         ], []);
     }
 

@@ -1,7 +1,9 @@
 import {SkillInfo, SkillKey, SkillList, SkillValue} from "./Skill";
 import {assert} from "./utils/Assert";
 export enum ParentalLineageKey {
+    CLASSIS_NOBLE,
     STEPPE_NOBLE,
+    POUR_LAKUAR_PEASANT,
     ARTISAN_BONECARVER,
 }
 
@@ -50,8 +52,28 @@ export class ParentalLineages {
             [
                 [SkillKey.COMBAT_SPEAR, SkillValue.SMALL],
                 [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
-                [SkillKey.APPRAISAL, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                 [SkillKey.CRAFTING_BONE_CARVING, SkillValue.NORMAL],
+            ]
+        );
+        this._addParentalLineage(
+            ParentalLineageKey.CLASSIS_NOBLE,
+            [
+                [SkillKey.RIDING, SkillValue.NORMAL],
+                [SkillKey.COMBAT_LANCE, SkillValue.NORMAL],
+                [SkillKey.COMBAT_RAPIER, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_ETIQUETTE, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_WARFARE, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
+                [SkillKey.LEADERSHIP, SkillValue.NORMAL],
+            ]
+        );
+        this._addParentalLineage(
+            ParentalLineageKey.POUR_LAKUAR_PEASANT,
+            [
+                [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.SMALL],
+                [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.SMALL],
+                [SkillKey.AGRICULTURE, SkillValue.LARGE],
             ]
         );
     }

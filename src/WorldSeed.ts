@@ -8,7 +8,7 @@ export namespace WorldSeed {
     export function skillToStatMagicFn(value: number): number {
         return (value > 0)
             ? Math.pow(value, 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1
-            : -Math.pow(Math.abs(value), 1 / NUMBER_POW_2) * NUMBER_POW_3 * NUMBER_POW_1;
+            : value;
     }
 
     export function skillModifierMaxValueMagicFn(value: number): number {

@@ -1,5 +1,5 @@
-import {DefaultValueNumberList} from "./DefaultValueNumberList";
-import {NumberInfo} from "./NumberList";
+import {DefaultValueNumberList} from "./list/DefaultValueNumberList";
+import {NumberInfo} from "./list/NumberList";
 
 export enum SkillTagKey {
     WEAPON_1_HAND,
@@ -12,6 +12,7 @@ export enum SkillTagKey {
     WEAPON_TYPE_FLEXIBLE,
     WEAPON_TYPE_RANGED,
     WEAPON_TYPE_THROWING,
+    COMMUNICATION,
 };
 
 export const SkillTagKeys = () => [
@@ -25,6 +26,7 @@ export const SkillTagKeys = () => [
     SkillTagKey.WEAPON_TYPE_FLEXIBLE,
     SkillTagKey.WEAPON_TYPE_RANGED,
     SkillTagKey.WEAPON_TYPE_THROWING,
+    SkillTagKey.COMMUNICATION,
 ];
 
 export type SkillTagInfo = NumberInfo<SkillTagKey>;

@@ -7,14 +7,24 @@ export enum StateKey {
     WAR,
     FAVORITE_LABORS,
     SERVICE_TO_IDEALS,
+    INSPIRATION,
+    LOVE,
+    UNREQUITED_LOVE,
+    INTERESTING_INTERLOCUTORS,
     ROUTINE,
+    HARD_WORD,
 }
 
 export const StateKeys = () => [
     StateKey.WAR,
     StateKey.FAVORITE_LABORS,
     StateKey.SERVICE_TO_IDEALS,
+    StateKey.INSPIRATION,
+    StateKey.LOVE,
+    StateKey.UNREQUITED_LOVE,
+    StateKey.INTERESTING_INTERLOCUTORS,
     StateKey.ROUTINE,
+    StateKey.HARD_WORD,
 ];
 
 assert(Object.keys(StateKey).length / 2 == StateKeys().length, "unexpected StateKeys length");
@@ -68,10 +78,30 @@ export class States {
             [StatKey.ETH_STR, 0.2],
             [StatKey.ETH_CON, 0.3],
         ]);
+        this._addState(StateKey.INTERESTING_INTERLOCUTORS, [
+            [StatKey.PSI_STR, 0.3],
+            [StatKey.PSI_DEX, 0.2],
+        ]);
+        this._addState(StateKey.INSPIRATION, [
+            [StatKey.ETH_DEX, 0.5],
+        ]);
+        this._addState(StateKey.LOVE, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, 0.1],
+        ]);
+        this._addState(StateKey.UNREQUITED_LOVE, [
+            [StatKey.ETH_STR, 0.6],
+            [StatKey.ETH_DEX, -0.2],
+            [StatKey.ETH_CON, 0.1],
+        ]);
         this._addState(StateKey.ROUTINE, [
             [StatKey.ETH_STR, -0.1],
             [StatKey.ETH_DEX, -0.2],
             [StatKey.ETH_CON, 0.4],
+            [StatKey.PSI_CON, 0.4],
+        ]);
+        this._addState(StateKey.HARD_WORD, [
+            [StatKey.ETH_CON, 0.1],
             [StatKey.PSI_CON, 0.4],
         ]);
     }

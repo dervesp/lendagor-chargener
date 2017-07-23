@@ -5,7 +5,7 @@ import {VectorKey} from "./ChildhoodVector";
 import {LifeYear} from "./LifeYear";
 import {ParentalLineageKey, ParentalLineages} from "./ParentalLineage";
 import {WorldSeed} from "./WorldSeed";
-import {SkillTagKeys} from "./list/SkillTag";
+import {SkillTagKeys} from "./SkillTag";
 
 const NORMAL_STAT_MIN_VALUE = 12;
 
@@ -80,6 +80,7 @@ export class Character {
     private _invalidateChildhood() {
         const homeRegionSkillModifiers = HomeRegions.get(this._childhoodHomeRegionKey).skillModifiers();
         const homeRegionVectorSkills = HomeRegions.get(this._childhoodHomeRegionKey).childhoodVectorSkills(this._childhoodVectorKey);
+        const homeRegionVectorStats = HomeRegions.get(this._childhoodHomeRegionKey).childhoodVectorStats(this._childhoodVectorKey);
         const parentalSkills = ParentalLineages.get(this._childhoodParentalLineageKey).skills();
         const choosenSkills = new SkillList([[this._childhoodChoosenSkillKey, 1]], 0);
 
@@ -92,6 +93,7 @@ export class Character {
             const skillValue = childhoodSkills.getItem(skillKey);
             childhoodStats = skillStats.multiply(skillValue).addList(childhoodStats);
         }
+        childhoodStats = childhoodStats.addList(homeRegionVectorStats);
         this._stats = this._stats.addList(childhoodStats);
     }
 
