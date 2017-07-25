@@ -190,7 +190,7 @@ function createWinegrapePeasant(): Character {
 
     for (let i = 0; i < 10; ++i) {
         const skills = new SkillList([
-            [SkillKey.AGRICULTURE, 0.6],
+            [SkillKey.AGRICULTURE_AGRONOMY, 0.6],
             [SkillKey.ART_PERFORMANCE_DANCE_SPORTY, 0.2],
             [SkillKey.GESTICULATION, 0.2],
         ], 0);
@@ -205,8 +205,78 @@ function createWinegrapePeasant(): Character {
     return character;
 }
 
+function createDoctor(additionalYears: number = 0): Character {
+    const character = new Character();
+    character.setChildhood(HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY, ParentalLineageKey.ARTISAN_DOCTOR, VectorKey.PSI, SkillKey.KNOWLEDGE_GHETTO);
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.MEDICINE_DOCTORING, 0.5],
+            [SkillKey.CHORES, 0.2],
+            [SkillKey.SERVICE_COURIER, 0.2],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.6],
+            [StateKey.ROUTINE, 0.2],
+            [StateKey.SORROW, 0.2],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.MEDICINE_DOCTORING, 0.5],
+            [SkillKey.CHORES, 0.1],
+            [SkillKey.SERVICE_COURIER, 0.2],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.1],
+            [SkillKey.LOCKPICKING, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.6],
+            [StateKey.ADRENALINE, 0.2],
+            [StateKey.MOURNING, 0.2],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.MEDICINE_DOCTORING, 0.5],
+            [SkillKey.ALCHEMY_PHARMACY, 0.2],
+            [SkillKey.SERVICE_TRADE, 0.1],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.2],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.4],
+            [StateKey.INTERESTING_INTERLOCUTORS, 0.2],
+            [StateKey.ADRENALINE, 0.1],
+            [StateKey.CYNICISM, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 4 + additionalYears; ++i) {
+        const skills = new SkillList([
+            [SkillKey.MEDICINE_DOCTORING, 0.2],
+            [SkillKey.ALCHEMY_PHARMACY, 0.5],
+            [SkillKey.SERVICE_TRADE, 0.2],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.INTROSPECTION, 0.3],
+            [StateKey.INTERESTING_INTERLOCUTORS, 0.1],
+            [StateKey.CYNICISM, 0.6],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY, skills, states));
+    }
+
+    character.invalidate();
+    return character;
+}
+
 Render.renderCharacters([
-    [createSteppeNoble(0), "Steppe noble, 22"],
+    // [createSteppeNoble(0), "Steppe noble, 22"],
     // [createSteppeNoble(6), "Steppe noble, 28"],
     // [createSteppeNoble(12), "Steppe noble, 34"],
     // [createSteppeNoble(18), "Steppe noble, 40"],
@@ -214,6 +284,12 @@ Render.renderCharacters([
     // [createSteppeNoble(30), "Steppe noble, 52"],
     // [createSteppeNoble(36), "Steppe noble, 58"],
     // [createSteppeNoble(42), "Steppe noble, 64"],
-    [createClassicNoblePoet(), "Noble poet, 22"],
-    [createWinegrapePeasant(), "Lakuar winegrape peasant, 22"],
+    // [createClassicNoblePoet(), "Noble poet, 22"],
+    // [createWinegrapePeasant(), "Lakuar winegrape peasant, 22"],
+    [createDoctor(0), "Ghetto doctor, 22"],
+    [createDoctor(6), "Ghetto doctor, 28"],
+    [createDoctor(12), "Ghetto doctor, 34"],
+    [createDoctor(18), "Ghetto doctor, 40"],
+    [createDoctor(24), "Ghetto doctor, 46"],
+    [createDoctor(30), "Ghetto doctor, 52"],
 ]);

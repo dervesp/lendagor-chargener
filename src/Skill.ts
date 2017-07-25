@@ -1,4 +1,4 @@
-import {NumberInfo} from "./list/NumberList";
+import {MergeNumberInfos, NumberInfo} from "./list/NumberList";
 import {StatInfo, StatKey, StatList} from "./Stat";
 import {DefaultValueNumberList} from "./list/DefaultValueNumberList";
 import {SkillTagInfo, SkillTagKey, SkillTagList} from "./SkillTag";
@@ -34,34 +34,65 @@ export enum SkillKey {
     COMBAT_WHIP,
     COMBAT_LANCE,
     COMBAT_SABER,
+    COMBAT_SPEAR,
     RIDING,
     CRAFTING_LEATHERWORKING=200,
+    CRAFTING_LEATHERCUTTING,
+    CRAFTING_FURRING,
+    CRAFTING_TAILORING,
+    CRAFTING_SHOEMAKING,
+    CRAFTING_HATMAKING,
+    CRAFTING_BLACKSMITHING,
+    CRAFTING_WOODWORKING,
+    CRAFTING_CARPENTERY,
+    CRAFTING_POTTERY,
+    CRAFTING_BONE_CARVING,
+    CRAFTING_SADDLERY,
+    CRAFTING_MILLING,
+    CRAFTING_GLASSWORKING,
+    CRAFTING_JEWELRY,
+    CRAFTING_BUTCHERY,
+    CRAFTING_COOKING,
     CRAFTING_WINEMAKING,
-    AGRICULTURE,
-    KNOWLEDGE_LIFE_STEPPE,
-    KNOWLEDGE_LIFE_TUNDRA,
-    KNOWLEDGE_ETIQUETTE,
-    KNOWLEDGE_WARFARE,
+    MEDICINE_DOCTORING,
+    MEDICINE_WITCH_DOCTORING,
+    MEDICINE_BARBERING,
     ART_MUSIC,
     ART_POETRY,
+    ART_STORYTELLING,
     ART_VISUAL_CARVING,
     ART_PERFORMANCE_DANCE_CALM,
     ART_PERFORMANCE_DANCE_PASSION,
     ART_PERFORMANCE_DANCE_SPORTY,
+    KNOWLEDGE_LIFE_STEPPE,
+    KNOWLEDGE_LIFE_TUNDRA,
+    KNOWLEDGE_LEGENDS,
+    KNOWLEDGE_WARFARE,
+    KNOWLEDGE_APPRAISAL,
+    KNOWLEDGE_ETIQUETTE,
+    KNOWLEDGE_LAW,
+    KNOWLEDGE_GHETTO,
+    KNOWLEDGE_RELIGION,
+    KNOWLEDGE_POLYMORTH,
+    KNOWLEDGE_ETHER,
+    KNOWLEDGE_PSIONIC,
+    AGRICULTURE_AGRONOMY,
+    AGRICULTURE_HERDING_TUNDRA,
+    AGRICULTURE_BEEKEEPING,
     ORATORY,
     GESTICULATION,
-    KNOWLEDGE_LEGENDS,
-    KNOWLEDGE_APPRAISAL,
     LEADERSHIP,
-    COMBAT_SPEAR,
-    KNOWLEDGE_LAW,
-    HERDING_TUNDRA,
+    ALCHEMY,
+    ALCHEMY_PHARMACY,
     FISHING,
     HUNTING,
-    CRAFTING_BLACKSMITHING,
-    CRAFTING_BONE_CARVING,
+    PICKPOCKETING,
+    LOCKPICKING,
+    PROSTITUTION,
     SERVICE_TRADE,
     SERVICE_SOMMELIER,
+    SERVICE_COURIER,
+    CHORES,
     TRAINING_CHILDISH_SPORTS,
 }
 
@@ -75,42 +106,104 @@ export const SkillKeys = () => [
     SkillKey.PSI_STR_ROLL_BONUS,
     SkillKey.PSI_DEX_ROLL_BONUS,
     SkillKey.PSI_CON_ROLL_BONUS,
-    SkillKey.RIDING,
     SkillKey.COMBAT_BOW,
     SkillKey.COMBAT_1H_SWORD,
-    SkillKey.COMBAT_SABER,
     SkillKey.COMBAT_RAPIER,
+    SkillKey.COMBAT_WHIP,
     SkillKey.COMBAT_LANCE,
+    SkillKey.COMBAT_SABER,
+    SkillKey.COMBAT_SPEAR,
+    SkillKey.RIDING,
     SkillKey.CRAFTING_LEATHERWORKING,
-    SkillKey.AGRICULTURE,
-    SkillKey.KNOWLEDGE_LIFE_STEPPE,
-    SkillKey.KNOWLEDGE_LIFE_TUNDRA,
-    SkillKey.KNOWLEDGE_ETIQUETTE,
-    SkillKey.KNOWLEDGE_WARFARE,
+    SkillKey.CRAFTING_LEATHERCUTTING,
+    SkillKey.CRAFTING_FURRING,
+    SkillKey.CRAFTING_TAILORING,
+    SkillKey.CRAFTING_SHOEMAKING,
+    SkillKey.CRAFTING_HATMAKING,
+    SkillKey.CRAFTING_BLACKSMITHING,
+    SkillKey.CRAFTING_WOODWORKING,
+    SkillKey.CRAFTING_CARPENTERY,
+    SkillKey.CRAFTING_POTTERY,
+    SkillKey.CRAFTING_BONE_CARVING,
+    SkillKey.CRAFTING_SADDLERY,
+    SkillKey.CRAFTING_MILLING,
+    SkillKey.CRAFTING_GLASSWORKING,
+    SkillKey.CRAFTING_JEWELRY,
+    SkillKey.CRAFTING_BUTCHERY,
+    SkillKey.CRAFTING_COOKING,
+    SkillKey.CRAFTING_WINEMAKING,
+    SkillKey.MEDICINE_DOCTORING,
+    SkillKey.MEDICINE_WITCH_DOCTORING,
+    SkillKey.MEDICINE_BARBERING,
     SkillKey.ART_MUSIC,
     SkillKey.ART_POETRY,
+    SkillKey.ART_STORYTELLING,
     SkillKey.ART_VISUAL_CARVING,
     SkillKey.ART_PERFORMANCE_DANCE_CALM,
     SkillKey.ART_PERFORMANCE_DANCE_PASSION,
     SkillKey.ART_PERFORMANCE_DANCE_SPORTY,
+    SkillKey.KNOWLEDGE_LIFE_STEPPE,
+    SkillKey.KNOWLEDGE_LIFE_TUNDRA,
+    SkillKey.KNOWLEDGE_LEGENDS,
+    SkillKey.KNOWLEDGE_WARFARE,
+    SkillKey.KNOWLEDGE_APPRAISAL,
+    SkillKey.KNOWLEDGE_ETIQUETTE,
+    SkillKey.KNOWLEDGE_LAW,
+    SkillKey.KNOWLEDGE_GHETTO,
+    SkillKey.KNOWLEDGE_RELIGION,
+    SkillKey.KNOWLEDGE_POLYMORTH,
+    SkillKey.KNOWLEDGE_ETHER,
+    SkillKey.KNOWLEDGE_PSIONIC,
+    SkillKey.AGRICULTURE_AGRONOMY,
+    SkillKey.AGRICULTURE_HERDING_TUNDRA,
+    SkillKey.AGRICULTURE_BEEKEEPING,
     SkillKey.ORATORY,
     SkillKey.GESTICULATION,
-    SkillKey.KNOWLEDGE_LEGENDS,
-    SkillKey.KNOWLEDGE_APPRAISAL,
-    SkillKey.COMBAT_WHIP,
     SkillKey.LEADERSHIP,
-    SkillKey.COMBAT_SPEAR,
-    SkillKey.KNOWLEDGE_LAW,
-    SkillKey.HERDING_TUNDRA,
+    SkillKey.ALCHEMY,
+    SkillKey.ALCHEMY_PHARMACY,
     SkillKey.FISHING,
     SkillKey.HUNTING,
-    SkillKey.CRAFTING_BLACKSMITHING,
-    SkillKey.CRAFTING_BONE_CARVING,
-    SkillKey.CRAFTING_WINEMAKING,
+    SkillKey.PICKPOCKETING,
+    SkillKey.LOCKPICKING,
+    SkillKey.PROSTITUTION,
     SkillKey.SERVICE_TRADE,
     SkillKey.SERVICE_SOMMELIER,
+    SkillKey.SERVICE_COURIER,
+    SkillKey.CHORES,
     SkillKey.TRAINING_CHILDISH_SPORTS,
 ];
+
+export const CitySkillBonuses = (skillInfos: SkillInfo[]): SkillInfo[] => {
+    return MergeNumberInfos([
+        [SkillKey.CRAFTING_LEATHERWORKING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_LEATHERCUTTING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_FURRING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_TAILORING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_SHOEMAKING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_HATMAKING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_BLACKSMITHING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_WOODWORKING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_CARPENTERY, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_POTTERY, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_BONE_CARVING, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_SADDLERY, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_JEWELRY, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_BUTCHERY, SkillModifier.BONUS_1],
+        [SkillKey.CRAFTING_COOKING, SkillModifier.BONUS_1],
+        [SkillKey.MEDICINE_DOCTORING, SkillModifier.BONUS_1],
+        [SkillKey.MEDICINE_BARBERING, SkillModifier.BONUS_1],
+        [SkillKey.PICKPOCKETING, SkillModifier.BONUS_1],
+        [SkillKey.LOCKPICKING, SkillModifier.BONUS_1],
+        [SkillKey.PROSTITUTION, SkillModifier.BONUS_1],
+        [SkillKey.SERVICE_TRADE, SkillModifier.BONUS_1],
+        [SkillKey.KNOWLEDGE_LAW, SkillModifier.BONUS_1],
+        [SkillKey.KNOWLEDGE_GHETTO, SkillModifier.BONUS_1],
+        [SkillKey.KNOWLEDGE_ETIQUETTE, SkillModifier.BONUS_1],
+        [SkillKey.ALCHEMY, SkillModifier.BONUS_1],
+        [SkillKey.ALCHEMY_PHARMACY, SkillModifier.BONUS_1],
+    ], skillInfos);
+};
 
 assert(Object.keys(SkillKey).length / 2 == SkillKeys().length, "unexpected SkillKeys length");
 
@@ -307,6 +400,79 @@ export class Skills {
             [StatKey.PHY_CON, 0.3],
             [StatKey.ETH_CON, 0.2],
         ], []);
+        this._addSkill(SkillKey.CRAFTING_LEATHERCUTTING, [
+            [StatKey.PHY_STR, 0.4],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_FURRING, [
+            [StatKey.PHY_STR, 0.2],
+            [StatKey.PHY_DEX, 0.4],
+            [StatKey.PHY_CON, 0.4],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_TAILORING, [
+            [StatKey.PHY_DEX, 0.5],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_SHOEMAKING, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.4],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_HATMAKING, [
+            [StatKey.PHY_DEX, 0.5],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_SADDLERY, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.4],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_WOODWORKING, [
+            [StatKey.PHY_STR, 0.4],
+            [StatKey.PHY_DEX, 0.2],
+            [StatKey.PHY_CON, 0.4],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_CARPENTERY, [
+            [StatKey.PHY_STR, 0.2],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_POTTERY, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.4],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_GLASSWORKING, [
+            [StatKey.PHY_STR, 0.2],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.5],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_JEWELRY, [
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.ETH_STR, 0.1],
+            [StatKey.ETH_DEX, 0.1],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_BUTCHERY, [
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_COOKING, [
+        ], []);
+        this._addSkill(SkillKey.CRAFTING_MILLING, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_CON, 0.5],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
         this._addSkill(SkillKey.CRAFTING_WINEMAKING, [
             [StatKey.PHY_CON, 0.1],
             [StatKey.ETH_STR, 0.1],
@@ -315,7 +481,19 @@ export class Skills {
             [StatKey.PSI_DEX, 0.2],
             [StatKey.PSI_CON, 0.2],
         ], []);
-        this._addSkill(SkillKey.AGRICULTURE, [
+        this._addSkill(SkillKey.MEDICINE_DOCTORING, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_STR, 0.3],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.MEDICINE_WITCH_DOCTORING, [
+        ], []);
+        this._addSkill(SkillKey.MEDICINE_BARBERING, [
+        ], []);
+        this._addSkill(SkillKey.AGRICULTURE_AGRONOMY, [
             [StatKey.PHY_CON, 0.6],
             [StatKey.ETH_CON, 0.2],
             [StatKey.PSI_CON, 0.2],
@@ -334,6 +512,49 @@ export class Skills {
             [StatKey.PSI_DEX, 0.1],
             [StatKey.PSI_CON, 0.1],
         ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_LEGENDS, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_ETIQUETTE, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_WARFARE, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_APPRAISAL, [
+            [StatKey.PSI_STR, 0.7],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_LAW, [
+            [StatKey.PSI_STR, 0.7],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_GHETTO, [
+            [StatKey.PSI_STR, 0.5],
+            [StatKey.PSI_DEX, 0.3],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_RELIGION, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_POLYMORTH, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_ETHER, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_PSIONIC, [
+            [StatKey.PSI_STR, 0.8],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
         this._addSkill(SkillKey.ART_MUSIC, [
             [StatKey.ETH_STR, 0.4],
             [StatKey.ETH_DEX, 0.3],
@@ -343,6 +564,12 @@ export class Skills {
             [StatKey.ETH_STR, 0.5],
             [StatKey.ETH_DEX, 0.4],
             [StatKey.ETH_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.ART_STORYTELLING, [
+            [StatKey.ETH_STR, 0.5],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.1],
+            [StatKey.PSI_STR, 0.2],
         ], []);
         this._addSkill(SkillKey.ART_VISUAL_CARVING, [
             [StatKey.PHY_DEX, 0.1],
@@ -382,23 +609,6 @@ export class Skills {
         ], [
             [SkillTagKey.COMMUNICATION, 1],
         ]);
-        this._addSkill(SkillKey.KNOWLEDGE_LEGENDS, [
-            [StatKey.PSI_STR, 0.8],
-            [StatKey.PSI_CON, 0.2],
-        ], []);
-        this._addSkill(SkillKey.KNOWLEDGE_ETIQUETTE, [
-            [StatKey.PSI_STR, 0.8],
-            [StatKey.PSI_CON, 0.2],
-        ], []);
-        this._addSkill(SkillKey.KNOWLEDGE_WARFARE, [
-            [StatKey.PSI_STR, 0.8],
-            [StatKey.PSI_CON, 0.2],
-        ], []);
-        this._addSkill(SkillKey.KNOWLEDGE_APPRAISAL, [
-            [StatKey.PSI_STR, 0.7],
-            [StatKey.PSI_DEX, 0.1],
-            [StatKey.PSI_CON, 0.2],
-        ], []);
         this._addSkill(SkillKey.LEADERSHIP, [
             [StatKey.ETH_STR, 0.5],
             [StatKey.ETH_DEX, 0.2],
@@ -406,15 +616,13 @@ export class Skills {
             [StatKey.PSI_STR, 0.1],
             [StatKey.PSI_DEX, 0.1],
         ], []);
-        this._addSkill(SkillKey.KNOWLEDGE_LAW, [
-            [StatKey.PSI_STR, 0.8],
-            [StatKey.PSI_CON, 0.2],
-        ], []);
-        this._addSkill(SkillKey.HERDING_TUNDRA, [
+        this._addSkill(SkillKey.AGRICULTURE_HERDING_TUNDRA, [
             [StatKey.PHY_DEX, 0.1],
             [StatKey.PHY_CON, 0.4],
             [StatKey.ETH_DEX, 0.2],
             [StatKey.ETH_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.AGRICULTURE_BEEKEEPING, [
         ], []);
         this._addSkill(SkillKey.FISHING, [
             [StatKey.PHY_DEX, 0.1],
@@ -440,6 +648,22 @@ export class Skills {
             [StatKey.PHY_DEX, 0.3],
             [StatKey.PHY_CON, 0.4],
         ], []);
+        this._addSkill(SkillKey.ALCHEMY, [
+        ], []);
+        this._addSkill(SkillKey.ALCHEMY_PHARMACY, [
+            [StatKey.PSI_STR, 0.4],
+            [StatKey.PSI_DEX, 0.4],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
+        this._addSkill(SkillKey.PICKPOCKETING, [
+        ], []);
+        this._addSkill(SkillKey.LOCKPICKING, [
+            [StatKey.PHY_DEX, 0.5],
+            [StatKey.PSI_STR, 0.2],
+            [StatKey.PSI_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.PROSTITUTION, [
+        ], []);
         this._addSkill(SkillKey.SERVICE_TRADE, [
             [StatKey.ETH_STR, 0.3],
             [StatKey.ETH_DEX, 0.2],
@@ -451,6 +675,19 @@ export class Skills {
             [StatKey.ETH_CON, 0.2],
             [StatKey.PSI_DEX, 0.1],
             [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.SERVICE_COURIER, [
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.4],
+            [StatKey.PSI_STR, 0.1],
+            [StatKey.PSI_DEX, 0.2],
+        ], []);
+        this._addSkill(SkillKey.CHORES, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.4],
+            [StatKey.ETH_CON, 0.1],
+            [StatKey.PSI_CON, 0.3],
         ], []);
         this._addSkill(SkillKey.TRAINING_CHILDISH_SPORTS, [
             [StatKey.PHY_STR, 0.2],

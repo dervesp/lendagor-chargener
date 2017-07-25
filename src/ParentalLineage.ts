@@ -5,6 +5,7 @@ export enum ParentalLineageKey {
     STEPPE_NOBLE,
     POUR_LAKUAR_PEASANT,
     ARTISAN_BONECARVER,
+    ARTISAN_DOCTOR,
 }
 
 export class ParentalLineage {
@@ -73,7 +74,15 @@ export class ParentalLineages {
             [
                 [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.SMALL],
                 [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.SMALL],
-                [SkillKey.AGRICULTURE, SkillValue.LARGE],
+                [SkillKey.AGRICULTURE_AGRONOMY, SkillValue.LARGE],
+            ]
+        );
+        this._addParentalLineage(
+            ParentalLineageKey.ARTISAN_DOCTOR,
+            [
+                [SkillKey.MEDICINE_DOCTORING, SkillValue.SMALL],
+                [SkillKey.CHORES, SkillValue.NORMAL],
+                [SkillKey.SERVICE_COURIER, SkillValue.NORMAL],
             ]
         );
     }

@@ -13,6 +13,14 @@ export enum StateKey {
     INTERESTING_INTERLOCUTORS,
     ROUTINE,
     HARD_WORD,
+    ADRENALINE,
+    EXCITEMENT,
+    COURAGE,
+    SORROW,
+    MOURNING,
+    PRAGMATISM,
+    CYNICISM,
+    INTROSPECTION,
 }
 
 export const StateKeys = () => [
@@ -25,6 +33,14 @@ export const StateKeys = () => [
     StateKey.INTERESTING_INTERLOCUTORS,
     StateKey.ROUTINE,
     StateKey.HARD_WORD,
+    StateKey.ADRENALINE,
+    StateKey.EXCITEMENT,
+    StateKey.COURAGE,
+    StateKey.SORROW,
+    StateKey.MOURNING,
+    StateKey.PRAGMATISM,
+    StateKey.CYNICISM,
+    StateKey.INTROSPECTION,
 ];
 
 assert(Object.keys(StateKey).length / 2 == StateKeys().length, "unexpected StateKeys length");
@@ -103,6 +119,45 @@ export class States {
         this._addState(StateKey.HARD_WORD, [
             [StatKey.ETH_CON, 0.1],
             [StatKey.PSI_CON, 0.4],
+        ]);
+        this._addState(StateKey.ADRENALINE, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, -0.1],
+        ]);
+        this._addState(StateKey.EXCITEMENT, [
+        ]);
+        this._addState(StateKey.COURAGE, [
+        ]);
+        this._addState(StateKey.SORROW, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, -0.1],
+            [StatKey.ETH_CON, 0.2],
+        ]);
+        this._addState(StateKey.MOURNING, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, -0.2],
+            [StatKey.ETH_CON, 0.3],
+        ]);
+        this._addState(StateKey.PRAGMATISM, [
+            [StatKey.ETH_DEX, -0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_DEX, 0.2],
+            [StatKey.PSI_CON, 0.3],
+        ]);
+        this._addState(StateKey.CYNICISM, [
+            [StatKey.ETH_STR, -0.2],
+            [StatKey.ETH_DEX, -0.2],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_DEX, 0.4],
+            [StatKey.PSI_CON, 0.3],
+        ]);
+        this._addState(StateKey.INTROSPECTION, [
+            [StatKey.ETH_DEX, 0.1],
+            [StatKey.ETH_CON, 0.1],
+            [StatKey.PSI_STR, 0.1],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.1],
         ]);
     }
 

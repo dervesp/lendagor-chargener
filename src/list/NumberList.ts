@@ -1,6 +1,17 @@
 import {ItemInfo} from "./List";
 
 export type NumberInfo<K> = [K, number];
+export function MergeNumberInfos<K>(numberInfosA: NumberInfo<K>[], numberInfosB: NumberInfo<K>[]): NumberInfo<K>[] {
+    const mapA: Map<K, number> = new Map<K, number>(numberInfosA);
+    const mapB: Map<K, number> = new Map<K, number>(numberInfosB);
+    const keySet = Array.from(new Set(Array.from(mapA.keys()).concat(Array.from(mapB.keys()))));
+    const numberInfos: NumberInfo<K>[] = [];
+    for (const key of keySet) {
+        numberInfos.push([key, mapB.has(key) ? mapB.get(key) : mapA.get(key)]);
+    }
+    return numberInfos;
+
+}
 export class NumberList<K> {
     private _itemMap: Map<K, number> = new Map<K, number>();
 

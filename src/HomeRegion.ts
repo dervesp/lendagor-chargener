@@ -1,5 +1,5 @@
 import {getVectorStats, VectorKey} from "./ChildhoodVector";
-import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue} from "./Skill";
+import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue, CitySkillBonuses} from "./Skill";
 import {assert} from "./utils/Assert";
 export enum HomeRegionKey {
     WILD_STEPPE,
@@ -7,6 +7,8 @@ export enum HomeRegionKey {
     RIVER_DELTA,
     TUNDRA_COAST,
     WARM_SEASIDE_VALLEYS,
+    MIDDLE_TAIGA_LAKES,
+    MIDDLE_TAIGA_LAKES_CITY,
 }
 
 export class HomeRegion {
@@ -74,7 +76,7 @@ export class HomeRegions {
                     [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LIFE_STEPPE, SkillValue.SMALL],
                 ]],
-            ]
+            ],
         );
         this._addHomeRegion(
             HomeRegionKey.TUNDRA_COAST,
@@ -84,7 +86,7 @@ export class HomeRegions {
             ],
             [
                 [SkillKey.KNOWLEDGE_LIFE_TUNDRA, SkillValue.NORMAL],
-                [SkillKey.HERDING_TUNDRA, SkillValue.NORMAL],
+                [SkillKey.AGRICULTURE_HERDING_TUNDRA, SkillValue.NORMAL],
             ],
             [
                 [VectorKey.PHY, [
@@ -102,7 +104,7 @@ export class HomeRegions {
                     [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LIFE_TUNDRA, SkillValue.SMALL],
                 ]],
-            ]
+            ],
         );
         this._addHomeRegion(
             HomeRegionKey.WARM_SEASIDE_VALLEYS,
@@ -113,7 +115,7 @@ export class HomeRegions {
                 [SkillKey.GESTICULATION, SkillModifier.BONUS_1],
             ],
             [
-                [SkillKey.AGRICULTURE, SkillValue.NORMAL],
+                [SkillKey.AGRICULTURE_AGRONOMY, SkillValue.NORMAL],
                 [SkillKey.GESTICULATION, SkillValue.NORMAL],
             ],
             [
@@ -121,14 +123,41 @@ export class HomeRegions {
                     [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.LARGE],
                 ]],
                 [VectorKey.ETH, [
-                    [SkillKey.ART_PERFORMANCE_DANCE_PASSION, SkillValue.NORMAL],
                     [SkillKey.ART_PERFORMANCE_DANCE_SPORTY, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
                 ]],
                 [VectorKey.PSI, [
                     [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.LARGE],
                 ]],
-            ]
+            ],
+        );
+        this._addHomeRegion(
+            HomeRegionKey.MIDDLE_TAIGA_LAKES_CITY,
+            CitySkillBonuses([
+                [SkillKey.CRAFTING_FURRING, SkillModifier.BONUS_2],
+                [SkillKey.CRAFTING_LEATHERCUTTING, SkillModifier.BONUS_2],
+                [SkillKey.CRAFTING_LEATHERWORKING, SkillModifier.BONUS_2],
+                [SkillKey.CRAFTING_CARPENTERY, SkillModifier.BONUS_2],
+            ]),
+            [
+                [SkillKey.KNOWLEDGE_LAW, SkillValue.SMALL],
+                [SkillKey.CHORES, SkillValue.NORMAL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.NORMAL],
+                    [SkillKey.CHORES, SkillValue.SMALL],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.ORATORY, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
+                ]],
+            ],
         );
     }
 
