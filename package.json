@@ -1,0 +1,15 @@
+{
+  "name": "lendagor-chargener",
+  "version": "1.0.0",
+  "dependencies": {
+    "typescript": "^2.4.2"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/tsc --project ./tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dervesp/lendagor-chargener.git"
+  },
+  "author": "Vladimir Danilevskiy <dervesp@gmail.com>"
+}
