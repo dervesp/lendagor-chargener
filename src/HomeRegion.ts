@@ -64,7 +64,7 @@ export class HomeRegions {
             ],
             [
                 [VectorKey.PHY, [
-                    [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
+                    // [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
                     [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
                     [SkillKey.RIDING_HORSE, SkillValue.SMALL],
                 ]],
@@ -174,7 +174,7 @@ export class HomeRegions {
                 [VectorKey.PHY, [
                     [SkillKey.HUNTING, SkillValue.NORMAL],
                     [SkillKey.COMBAT_SPEAR, SkillValue.NORMAL],
-                    [SkillKey.COMBAT_JAVELIN, SkillValue.SMALL],
+                    // [SkillKey.COMBAT_JAVELIN, SkillValue.SMALL],
                 ]],
                 [VectorKey.ETH, [
                     [SkillKey.RIDING_ELEPHANT, SkillValue.NORMAL],

@@ -1,24 +1,7 @@
 import {Character} from "./Character";
-import {NumberList} from "./list/NumberList";
 import {StatKey, StatKeys} from "./Stat";
-import {
-    CraftingSkillKeys, KnowledgeLifeSkillKeys, KnowledgeSkillKeys, SkillKey, SkillKeys, StatRollBonusSkillKeys,
-    WeaponSkillKeys,
-} from "./Skill";
+import {SkillKey, SkillKeys} from "./Skill";
 export namespace Render {
-    function getSkillType(skillKey: SkillKey): string {
-        if (WeaponSkillKeys().indexOf(skillKey) != -1) {
-            return "weapon_skill";
-        } else if (CraftingSkillKeys().indexOf(skillKey) != -1) {
-            return "crafting_skill";
-        } else if (KnowledgeLifeSkillKeys().indexOf(skillKey) != -1) {
-            return "knowledge_life_skill";
-        } else if (KnowledgeSkillKeys().indexOf(skillKey) != -1) {
-            return "knowledge_skill";
-        }
-        return "";
-    }
-
     function renderHeader(titles: string[]): string {
         return `<tr class="header"><th></th>${titles.map((title) => `<th>${title}</th>`).join("")}</tr>`;
     }
@@ -27,48 +10,83 @@ export namespace Render {
         return `<tr class="subheader"><td>${value}</td></tr>`;
     }
 
-    function renderRow(name: string, values: string[], type: string = ""): string {
-        return `<tr class="row${(type != "") ? " " + type : ""}"><td class="row_title">${name}</td>${values.map((value) => `<td>${value}</td>`).join("")}</tr>`;
+    type RowItem = [string, string];
+    function renderRow(title: string, rowItems: RowItem[], type: string = ""): string {
+        const rowItemsHtml = rowItems.map((rowItem: RowItem) => {
+            const text = rowItem[0];
+            const title = rowItem[1];
+            return `<td title="${title}">${text}</td>`
+        });
+        return `<tr class="row${(type != "") ? " " + type : ""}"><td class="row_title">${title}</td>${rowItemsHtml.join("")}</tr>`;
     }
 
-    function renderParams(characterInfos: [Character, string][]): string {
+    function renderParams(characterInfos: CharacterInfo[]): string {
         const listHeader = renderSubHeader("Params");
         let listBody = "";
-        listBody += renderRow("WILLPOWER", characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].paramWillPower().toString()));
-        listBody += renderRow("HEALTH", characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].paramHealth().toString()));
-        listBody += renderRow("HP", characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].paramHp().toString()));
+        listBody += renderRow("WILLPOWER", characterInfos.map((characterInfo: CharacterInfo) => [characterInfo[0].paramWillPower().toString(), ""] as RowItem));
+        listBody += renderRow("HEALTH", characterInfos.map((characterInfo: CharacterInfo) => [characterInfo[0].paramHealth().toString(), ""] as RowItem));
+        listBody += renderRow("HP", characterInfos.map((characterInfo: CharacterInfo) => [characterInfo[0].paramHp().toString(), ""] as RowItem));
         return listHeader + listBody
     }
 
-    function renderNumberLists<K>(name: string, keyInfos: [K, string][], lists: NumberList<K>[]): string {
+    type RowInfo = [string, string, RowItem[]]
+    function renderNumberLists<K>(name: string, keys: K[], generateRowInfoFn: (key: K) => RowInfo): string {
         const listHeader = renderSubHeader(name);
-        const listBody = keyInfos.map((keyInfos: [K, string]) => {
-            return renderRow(keyInfos[1], lists.map((list: NumberList<K>) => list.getItem(keyInfos[0]).toString()), keyInfos[1]);
-        }).join("");
-        return listHeader + listBody;
+        const listRows = keys.map((key: K) => {
+            const rowInfo = generateRowInfoFn(key);
+            const rowTitle = rowInfo[0];
+            const rowType = rowInfo[1];
+            const rowItems = rowInfo[2];
+            return renderRow(rowTitle, rowItems, rowType);
+        });
+        return listHeader + listRows.join("");
     }
 
-    function renderStatList(characterInfos: [Character, string][]): string {
-        const statList = renderNumberLists(
-            "Stats",
-            StatKeys().map((statKey: StatKey) => [statKey, StatKey[statKey]] as [StatKey, string]),
-            characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].stats())
-        );
-        const statSum = renderRow("∑", characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].stats().sum().toString()));
-        return statList + statSum;
+    type CharacterInfo = [Character, string];
+    function renderStatList(characterInfos: CharacterInfo[]): string {
+        const generateFn = (statKey: StatKey) => {
+            const rowTitle = StatKey[statKey];
+            const rowType = StatKey[statKey];
+            const rowItems = characterInfos.map((characterInfo: CharacterInfo) => {
+                const character = characterInfo[0];
+                const statValue = character.stats().getItem(statKey);
+                return [statValue.toString(), ""] as RowItem;
+            });
+            return [rowTitle, rowType, rowItems] as RowInfo;
+        };
+        const statList = renderNumberLists("Stats", StatKeys(), generateFn);
+
+        const statSums = characterInfos.map((characterInfo: CharacterInfo) => {
+            const character = characterInfo[0];
+            return [character.stats().sum().toString(), ""] as RowItem;
+        });
+        const statSumRow = renderRow("∑", statSums);
+        return statList + statSumRow;
     }
 
-    function renderSkillList(characterInfos: [Character, string][]): string {
-        return renderNumberLists(
-            "Skills",
-            SkillKeys().map((skillKey: SkillKey) => [skillKey, SkillKey[skillKey]] as [SkillKey, string]),
-            characterInfos.map((characterInfo: [Character, string]) => characterInfo[0].skills())
-        );
+    function renderSkillList(characterInfos: CharacterInfo[]): string {
+        const generateFn = (skillKey: SkillKey) => {
+            const rowTitle = SkillKey[skillKey];
+            const rowType = SkillKey[skillKey];
+            const rowItems = characterInfos.map((characterInfo: CharacterInfo) => {
+                const character = characterInfo[0];
+                const skillValue = character.skills().getItem(skillKey);
+                const skillRawValue = (<any>character)._skills.getItem(skillKey);
+                const skillModifier = (<any>character)._skillModifiers.getItem(skillKey);
+                const adjacentSkillModifier = (<any>character)._adjacentSkillModifiers.getItem(skillKey);
+                return [
+                    skillValue.toString(),
+                    `${skillRawValue.toFixed(2)} + ${skillModifier.toFixed(2)} + ${adjacentSkillModifier.toFixed(2)}`,
+                ] as RowItem;
+            });
+            return [rowTitle, rowType, rowItems] as RowInfo;
+        };
+        return renderNumberLists("Skills", SkillKeys(), generateFn);
     }
 
-    export function renderCharacters(characterInfos: [Character, string][]) {
+    export function renderCharacters(characterInfos: CharacterInfo[]) {
         let resultHtml = "";
-        resultHtml += renderHeader(characterInfos.map((characterInfo: [Character, string]) => characterInfo[1]));
+        resultHtml += renderHeader(characterInfos.map((characterInfo: CharacterInfo) => characterInfo[1]));
         resultHtml += renderStatList(characterInfos);
         resultHtml += renderParams(characterInfos);
         resultHtml += renderSkillList(characterInfos);

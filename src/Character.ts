@@ -5,7 +5,8 @@ import {VectorKey} from "./ChildhoodVector";
 import {LifeYear} from "./LifeYear";
 import {ParentalLineageKey, ParentalLineages} from "./ParentalLineage";
 import {WorldSeed} from "./WorldSeed";
-import {SkillTagKeys} from "./SkillTag";
+import {SkillTagKeys, SkillTags} from "./SkillTag";
+import {SkillTagCategoryKey, SkillTagCategories} from "./SkillTagCategory";
 
 const NORMAL_STAT_MIN_VALUE = 12;
 
@@ -151,19 +152,25 @@ export class Character {
                     continue;
                 }
                 const skill = Skills.get(skillKey);
-                const skillValue = this._skills.getItem(skillKey);
                 let minSum = 0;
-                let maxSum = 0;
+                const skillTagCategoryKeys: Set<SkillTagCategoryKey> = new Set<SkillTagCategoryKey>();
                 for (const skillTagKey of SkillTagKeys()) {
                     const currentSkillTagValue = currentSkill.skillTags().getItem(skillTagKey);
                     const skillTagValue = skill.skillTags().getItem(skillTagKey);
-                    minSum += Math.min(currentSkillTagValue, skillTagValue);
-                    maxSum += Math.max(currentSkillTagValue, skillTagValue);
+                    if (currentSkillTagValue == 0 && skillTagValue == 0) {
+                        continue;
+                    }
+                    const skillTagCategoryKey = SkillTags.get(skillTagKey).skillTagCategoryKey();
+                    skillTagCategoryKeys.add(skillTagCategoryKey);
+                    minSum += Math.min(currentSkillTagValue, skillTagValue) * SkillTagCategories.get(skillTagCategoryKey).value();
                 }
-                if (minSum == 0 || maxSum == 0) {
+                if (minSum == 0) {
                     continue;
                 }
-                resultAdjacentSkillModifier += (minSum / maxSum) * skillValue;
+                const maxSum = Array.from(skillTagCategoryKeys.values()).reduce((resultValue: number, skillTagCategoryKey: SkillTagCategoryKey) => {
+                    return resultValue + SkillTagCategories.get(skillTagCategoryKey).value();
+                }, 0);
+                resultAdjacentSkillModifier += (minSum / maxSum) * this._skills.getItem(skillKey);
             }
             return resultAdjacentSkillModifier;
         });

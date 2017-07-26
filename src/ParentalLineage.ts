@@ -42,7 +42,7 @@ export class ParentalLineages {
                 [SkillKey.COMBAT_SABER, SkillValue.NORMAL],
                 [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
                 [SkillKey.COMBAT_SPEAR, SkillValue.NORMAL],
-                [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
+                // [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
                 [SkillKey.RIDING_HORSE, SkillValue.NORMAL],
                 [SkillKey.LEADERSHIP, SkillValue.NORMAL],
                 [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],

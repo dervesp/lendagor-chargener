@@ -324,8 +324,8 @@ function createAshdariMahout(): Character {
         const skills = new SkillList([
             [SkillKey.RIDING_ELEPHANT, 0.2],
             [SkillKey.HUNTING, 0.2],
-            [SkillKey.COMBAT_JAVELIN, 0.3],
-            [SkillKey.COMBAT_SPEAR, 0.3],
+            // [SkillKey.COMBAT_JAVELIN, 0.3],
+            [SkillKey.COMBAT_SPEAR, 0.6],
         ], 0);
         const states = new StateList([
             [StateKey.UNREQUITED_LOVE, 0.4],
