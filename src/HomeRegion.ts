@@ -3,12 +3,14 @@ import {SkillInfo, SkillKey, SkillList, SkillModifier, SkillValue, CitySkillBonu
 import {assert} from "./utils/Assert";
 export enum HomeRegionKey {
     WILD_STEPPE,
-    STEPPE_TOWNS,
+    STEPPE_TOWN,
     RIVER_DELTA,
     TUNDRA_COAST,
-    WARM_SEASIDE_VALLEYS,
+    WARM_SEASIDE_VALLEYS, //LAKUAR
     MIDDLE_TAIGA_LAKES,
     MIDDLE_TAIGA_LAKES_CITY,
+    WET_TROPICAL_FOREST, //ASHDAR'IAN
+    WET_TROPICAL_FOREST_CITY, //ASHDAR'IAN
 }
 
 export class HomeRegion {
@@ -53,18 +55,18 @@ export class HomeRegions {
         this._addHomeRegion(
             HomeRegionKey.WILD_STEPPE,
             [
-                [SkillKey.RIDING, SkillModifier.BONUS_2],
+                [SkillKey.RIDING_HORSE, SkillModifier.BONUS_2],
                 [SkillKey.CRAFTING_LEATHERWORKING, SkillModifier.BONUS_1],
             ],
             [
                 [SkillKey.KNOWLEDGE_LIFE_STEPPE, SkillValue.NORMAL],
-                [SkillKey.RIDING, SkillValue.NORMAL],
+                [SkillKey.RIDING_HORSE, SkillValue.NORMAL],
             ],
             [
                 [VectorKey.PHY, [
                     [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
                     [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
-                    [SkillKey.RIDING, SkillValue.SMALL],
+                    [SkillKey.RIDING_HORSE, SkillValue.SMALL],
                 ]],
                 [VectorKey.ETH, [
                     [SkillKey.ART_MUSIC, SkillValue.NORMAL],
@@ -156,6 +158,59 @@ export class HomeRegions {
                 [VectorKey.PSI, [
                     [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
+                ]],
+            ],
+        );
+        this._addHomeRegion(
+            HomeRegionKey.WET_TROPICAL_FOREST,
+            [
+                [SkillKey.RIDING_ELEPHANT, SkillModifier.BONUS_2],
+            ],
+            [
+                [SkillKey.KNOWLEDGE_LIFE_WET_TROPICAL_FOREST, SkillValue.NORMAL],
+                [SkillKey.HUNTING, SkillValue.NORMAL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.HUNTING, SkillValue.NORMAL],
+                    [SkillKey.COMBAT_SPEAR, SkillValue.NORMAL],
+                    [SkillKey.COMBAT_JAVELIN, SkillValue.SMALL],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.RIDING_ELEPHANT, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_LIFE_WET_TROPICAL_FOREST, SkillValue.NORMAL],
+                ]],
+            ],
+        );
+        this._addHomeRegion(
+            HomeRegionKey.WET_TROPICAL_FOREST_CITY,
+            CitySkillBonuses([
+                [SkillKey.SERVICE_TRADE, SkillModifier.BONUS_2],
+                [SkillKey.MEDICINE_DOCTORING, SkillModifier.NORMAL],
+                [SkillKey.MEDICINE_WITCH_DOCTORING, SkillModifier.BONUS_2],
+            ]),
+            [
+                [SkillKey.KNOWLEDGE_LAW, SkillValue.SMALL],
+                [SkillKey.KNOWLEDGE_GHETTO, SkillValue.NORMAL],
+                [SkillKey.CHORES, SkillValue.NORMAL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.NORMAL],
+                    [SkillKey.CHORES, SkillValue.SMALL],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_GHETTO, SkillValue.SMALL],
                 ]],
             ],
         );

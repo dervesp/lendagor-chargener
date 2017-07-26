@@ -6,6 +6,10 @@ import {assert, assertEqualNumber} from "./utils/Assert";
 export enum StateKey {
     WAR,
     FAVORITE_LABORS,
+    SERVICE,
+    SLAVERY,
+    SENSE_OF_FREEDOM,
+    NEW_BIRTH,
     SERVICE_TO_IDEALS,
     INSPIRATION,
     LOVE,
@@ -26,6 +30,10 @@ export enum StateKey {
 export const StateKeys = () => [
     StateKey.WAR,
     StateKey.FAVORITE_LABORS,
+    StateKey.SERVICE,
+    StateKey.SLAVERY,
+    StateKey.SENSE_OF_FREEDOM,
+    StateKey.NEW_BIRTH,
     StateKey.SERVICE_TO_IDEALS,
     StateKey.INSPIRATION,
     StateKey.LOVE,
@@ -89,6 +97,28 @@ export class States {
         this._addState(StateKey.FAVORITE_LABORS, [
             [StatKey.ETH_STR, 0.3],
             [StatKey.ETH_DEX, 0.2],
+        ]);
+        this._addState(StateKey.SERVICE, [
+            [StatKey.ETH_STR, -0.1],
+            [StatKey.ETH_DEX, -0.1],
+            [StatKey.ETH_CON, 0.4],
+            [StatKey.PSI_CON, 0.3],
+        ]);
+        this._addState(StateKey.SLAVERY, [
+            [StatKey.ETH_STR, -0.2],
+            [StatKey.ETH_DEX, -0.2],
+            [StatKey.ETH_CON, 0.5],
+            [StatKey.PSI_STR, -0.1],
+            [StatKey.PSI_CON, 0.5],
+        ]);
+        this._addState(StateKey.SENSE_OF_FREEDOM, [
+            [StatKey.ETH_STR, 0.3],
+            [StatKey.ETH_DEX, 0.2],
+        ]);
+        this._addState(StateKey.NEW_BIRTH, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, 0.3],
+            [StatKey.ETH_CON, -0.2],
         ]);
         this._addState(StateKey.SERVICE_TO_IDEALS, [
             [StatKey.ETH_STR, 0.2],

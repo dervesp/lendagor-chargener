@@ -35,7 +35,9 @@ export enum SkillKey {
     COMBAT_LANCE,
     COMBAT_SABER,
     COMBAT_SPEAR,
-    RIDING,
+    COMBAT_JAVELIN,
+    RIDING_HORSE,
+    RIDING_ELEPHANT,
     CRAFTING_LEATHERWORKING=200,
     CRAFTING_LEATHERCUTTING,
     CRAFTING_FURRING,
@@ -66,6 +68,7 @@ export enum SkillKey {
     ART_PERFORMANCE_DANCE_SPORTY,
     KNOWLEDGE_LIFE_STEPPE,
     KNOWLEDGE_LIFE_TUNDRA,
+    KNOWLEDGE_LIFE_WET_TROPICAL_FOREST,
     KNOWLEDGE_LEGENDS,
     KNOWLEDGE_WARFARE,
     KNOWLEDGE_APPRAISAL,
@@ -77,7 +80,9 @@ export enum SkillKey {
     KNOWLEDGE_ETHER,
     KNOWLEDGE_PSIONIC,
     AGRICULTURE_AGRONOMY,
+    AGRICULTURE_HERDING_STEPPE,
     AGRICULTURE_HERDING_TUNDRA,
+    AGRICULTURE_HERDING_WET_TROPICAL_FOREST,
     AGRICULTURE_BEEKEEPING,
     ORATORY,
     GESTICULATION,
@@ -94,9 +99,10 @@ export enum SkillKey {
     SERVICE_COURIER,
     CHORES,
     TRAINING_CHILDISH_SPORTS,
+    TRAINING_CHILDISH_GAMES,
 }
 
-export const SkillKeys = () => [
+export const StatRollBonusSkillKeys = () => [
     SkillKey.PHY_STR_ROLL_BONUS,
     SkillKey.PHY_DEX_ROLL_BONUS,
     SkillKey.PHY_CON_ROLL_BONUS,
@@ -106,6 +112,9 @@ export const SkillKeys = () => [
     SkillKey.PSI_STR_ROLL_BONUS,
     SkillKey.PSI_DEX_ROLL_BONUS,
     SkillKey.PSI_CON_ROLL_BONUS,
+];
+
+export const WeaponSkillKeys = () => [
     SkillKey.COMBAT_BOW,
     SkillKey.COMBAT_1H_SWORD,
     SkillKey.COMBAT_RAPIER,
@@ -113,7 +122,10 @@ export const SkillKeys = () => [
     SkillKey.COMBAT_LANCE,
     SkillKey.COMBAT_SABER,
     SkillKey.COMBAT_SPEAR,
-    SkillKey.RIDING,
+    SkillKey.COMBAT_JAVELIN,
+];
+
+export const CraftingSkillKeys = () => [
     SkillKey.CRAFTING_LEATHERWORKING,
     SkillKey.CRAFTING_LEATHERCUTTING,
     SkillKey.CRAFTING_FURRING,
@@ -132,18 +144,15 @@ export const SkillKeys = () => [
     SkillKey.CRAFTING_BUTCHERY,
     SkillKey.CRAFTING_COOKING,
     SkillKey.CRAFTING_WINEMAKING,
-    SkillKey.MEDICINE_DOCTORING,
-    SkillKey.MEDICINE_WITCH_DOCTORING,
-    SkillKey.MEDICINE_BARBERING,
-    SkillKey.ART_MUSIC,
-    SkillKey.ART_POETRY,
-    SkillKey.ART_STORYTELLING,
-    SkillKey.ART_VISUAL_CARVING,
-    SkillKey.ART_PERFORMANCE_DANCE_CALM,
-    SkillKey.ART_PERFORMANCE_DANCE_PASSION,
-    SkillKey.ART_PERFORMANCE_DANCE_SPORTY,
+];
+
+export const KnowledgeLifeSkillKeys = () => [
     SkillKey.KNOWLEDGE_LIFE_STEPPE,
     SkillKey.KNOWLEDGE_LIFE_TUNDRA,
+    SkillKey.KNOWLEDGE_LIFE_WET_TROPICAL_FOREST,
+];
+
+export const KnowledgeSkillKeys = () => [
     SkillKey.KNOWLEDGE_LEGENDS,
     SkillKey.KNOWLEDGE_WARFARE,
     SkillKey.KNOWLEDGE_APPRAISAL,
@@ -154,25 +163,52 @@ export const SkillKeys = () => [
     SkillKey.KNOWLEDGE_POLYMORTH,
     SkillKey.KNOWLEDGE_ETHER,
     SkillKey.KNOWLEDGE_PSIONIC,
-    SkillKey.AGRICULTURE_AGRONOMY,
-    SkillKey.AGRICULTURE_HERDING_TUNDRA,
-    SkillKey.AGRICULTURE_BEEKEEPING,
-    SkillKey.ORATORY,
-    SkillKey.GESTICULATION,
-    SkillKey.LEADERSHIP,
-    SkillKey.ALCHEMY,
-    SkillKey.ALCHEMY_PHARMACY,
-    SkillKey.FISHING,
-    SkillKey.HUNTING,
-    SkillKey.PICKPOCKETING,
-    SkillKey.LOCKPICKING,
-    SkillKey.PROSTITUTION,
-    SkillKey.SERVICE_TRADE,
-    SkillKey.SERVICE_SOMMELIER,
-    SkillKey.SERVICE_COURIER,
-    SkillKey.CHORES,
-    SkillKey.TRAINING_CHILDISH_SPORTS,
 ];
+
+export const SkillKeys = () => {
+    return [].concat(
+        StatRollBonusSkillKeys(),
+        WeaponSkillKeys(),
+        CraftingSkillKeys(),
+        KnowledgeLifeSkillKeys(),
+        KnowledgeSkillKeys(),
+        [
+            SkillKey.RIDING_HORSE,
+            SkillKey.RIDING_ELEPHANT,
+            SkillKey.MEDICINE_DOCTORING,
+            SkillKey.MEDICINE_WITCH_DOCTORING,
+            SkillKey.MEDICINE_BARBERING,
+            SkillKey.ART_MUSIC,
+            SkillKey.ART_POETRY,
+            SkillKey.ART_STORYTELLING,
+            SkillKey.ART_VISUAL_CARVING,
+            SkillKey.ART_PERFORMANCE_DANCE_CALM,
+            SkillKey.ART_PERFORMANCE_DANCE_PASSION,
+            SkillKey.ART_PERFORMANCE_DANCE_SPORTY,
+            SkillKey.AGRICULTURE_AGRONOMY,
+            SkillKey.AGRICULTURE_HERDING_STEPPE,
+            SkillKey.AGRICULTURE_HERDING_TUNDRA,
+            SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST,
+            SkillKey.AGRICULTURE_BEEKEEPING,
+            SkillKey.ORATORY,
+            SkillKey.GESTICULATION,
+            SkillKey.LEADERSHIP,
+            SkillKey.ALCHEMY,
+            SkillKey.ALCHEMY_PHARMACY,
+            SkillKey.FISHING,
+            SkillKey.HUNTING,
+            SkillKey.PICKPOCKETING,
+            SkillKey.LOCKPICKING,
+            SkillKey.PROSTITUTION,
+            SkillKey.SERVICE_TRADE,
+            SkillKey.SERVICE_SOMMELIER,
+            SkillKey.SERVICE_COURIER,
+            SkillKey.CHORES,
+            SkillKey.TRAINING_CHILDISH_SPORTS,
+            SkillKey.TRAINING_CHILDISH_GAMES,
+        ]
+    );
+};
 
 export const CitySkillBonuses = (skillInfos: SkillInfo[]): SkillInfo[] => {
     return MergeNumberInfos([
@@ -387,12 +423,46 @@ export class Skills {
             [StatKey.PHY_DEX, 0.4],
             [StatKey.PHY_CON, 0.2],
             [StatKey.PSI_CON, 0.1],
-        ], []);
-        this._addSkill(SkillKey.RIDING, [
+        ], [
+            [SkillTagKey.WEAPON_1_HAND, 0.5],
+            [SkillTagKey.WEAPON_2_HAND, 0.5],
+            [SkillTagKey.WEAPON_BALANCED, 1],
+            [SkillTagKey.WEAPON_UNBALANCED, 0],
+            [SkillTagKey.WEAPON_TYPE_BLADE, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_SHOCK, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_STICHING, 1],
+            [SkillTagKey.WEAPON_TYPE_FLEXIBLE, 0],
+            [SkillTagKey.WEAPON_TYPE_RANGED, 0],
+            [SkillTagKey.WEAPON_TYPE_THROWING, 0],
+        ]);
+        this._addSkill(SkillKey.COMBAT_JAVELIN, [
+            [StatKey.PHY_STR, 0.6],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.1],
+        ], [
+            [SkillTagKey.WEAPON_1_HAND, 1],
+            [SkillTagKey.WEAPON_2_HAND, 0],
+            [SkillTagKey.WEAPON_BALANCED, 1],
+            [SkillTagKey.WEAPON_UNBALANCED, 0],
+            [SkillTagKey.WEAPON_TYPE_BLADE, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_SHOCK, 0],
+            [SkillTagKey.WEAPON_TYPE_PYLON_STICHING, 0.4],
+            [SkillTagKey.WEAPON_TYPE_FLEXIBLE, 0],
+            [SkillTagKey.WEAPON_TYPE_RANGED, 0],
+            [SkillTagKey.WEAPON_TYPE_THROWING, 1],
+        ]);
+        this._addSkill(SkillKey.RIDING_HORSE, [
             [StatKey.PHY_STR, 0.1],
             [StatKey.PHY_DEX, 0.2],
             [StatKey.PHY_CON, 0.6],
             [StatKey.ETH_DEX, 0.1],
+        ], []);
+        this._addSkill(SkillKey.RIDING_ELEPHANT, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.4],
+            [StatKey.ETH_STR, 0.2],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.1],
         ], []);
         this._addSkill(SkillKey.CRAFTING_LEATHERWORKING, [
             [StatKey.PHY_STR, 0.1],
@@ -490,6 +560,10 @@ export class Skills {
             [StatKey.PSI_CON, 0.1],
         ], []);
         this._addSkill(SkillKey.MEDICINE_WITCH_DOCTORING, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.ETH_DEX, 0.4],
+            [StatKey.ETH_CON, 0.3],
+            [StatKey.PSI_STR, 0.2],
         ], []);
         this._addSkill(SkillKey.MEDICINE_BARBERING, [
         ], []);
@@ -506,6 +580,13 @@ export class Skills {
             [StatKey.PSI_CON, 0.1],
         ], []);
         this._addSkill(SkillKey.KNOWLEDGE_LIFE_TUNDRA, [
+            [StatKey.ETH_DEX, 0.1],
+            [StatKey.ETH_CON, 0.2],
+            [StatKey.PSI_STR, 0.5],
+            [StatKey.PSI_DEX, 0.1],
+            [StatKey.PSI_CON, 0.1],
+        ], []);
+        this._addSkill(SkillKey.KNOWLEDGE_LIFE_WET_TROPICAL_FOREST, [
             [StatKey.ETH_DEX, 0.1],
             [StatKey.ETH_CON, 0.2],
             [StatKey.PSI_STR, 0.5],
@@ -616,11 +697,25 @@ export class Skills {
             [StatKey.PSI_STR, 0.1],
             [StatKey.PSI_DEX, 0.1],
         ], []);
+        this._addSkill(SkillKey.AGRICULTURE_HERDING_STEPPE, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.3],
+            [StatKey.PSI_CON, 0.2],
+        ], []);
         this._addSkill(SkillKey.AGRICULTURE_HERDING_TUNDRA, [
             [StatKey.PHY_DEX, 0.1],
             [StatKey.PHY_CON, 0.4],
             [StatKey.ETH_DEX, 0.2],
             [StatKey.ETH_CON, 0.3],
+        ], []);
+        this._addSkill(SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.3],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.3],
+            [StatKey.PSI_CON, 0.1],
         ], []);
         this._addSkill(SkillKey.AGRICULTURE_BEEKEEPING, [
         ], []);
@@ -695,6 +790,14 @@ export class Skills {
             [StatKey.PHY_CON, 0.3],
             [StatKey.ETH_STR, 0.1],
             [StatKey.ETH_DEX, 0.1],
+        ], []);
+        this._addSkill(SkillKey.TRAINING_CHILDISH_GAMES, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.2],
+            [StatKey.PHY_CON, 0.2],
+            [StatKey.ETH_STR, 0.2],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.PSI_DEX, 0.1],
         ], []);
     }
 

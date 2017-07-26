@@ -1,8 +1,24 @@
 import {Character} from "./Character";
 import {NumberList} from "./list/NumberList";
 import {StatKey, StatKeys} from "./Stat";
-import {SkillKey, SkillKeys} from "./Skill";
+import {
+    CraftingSkillKeys, KnowledgeLifeSkillKeys, KnowledgeSkillKeys, SkillKey, SkillKeys, StatRollBonusSkillKeys,
+    WeaponSkillKeys,
+} from "./Skill";
 export namespace Render {
+    function getSkillType(skillKey: SkillKey): string {
+        if (WeaponSkillKeys().indexOf(skillKey) != -1) {
+            return "weapon_skill";
+        } else if (CraftingSkillKeys().indexOf(skillKey) != -1) {
+            return "crafting_skill";
+        } else if (KnowledgeLifeSkillKeys().indexOf(skillKey) != -1) {
+            return "knowledge_life_skill";
+        } else if (KnowledgeSkillKeys().indexOf(skillKey) != -1) {
+            return "knowledge_skill";
+        }
+        return "";
+    }
+
     function renderHeader(titles: string[]): string {
         return `<tr class="header"><th></th>${titles.map((title) => `<th>${title}</th>`).join("")}</tr>`;
     }
@@ -11,8 +27,8 @@ export namespace Render {
         return `<tr class="subheader"><td>${value}</td></tr>`;
     }
 
-    function renderRow(name: string, values: string[]): string {
-        return `<tr class="row"><td class="row_title">${name}</td>${values.map((value) => `<td>${value}</td>`).join("")}</tr>`;
+    function renderRow(name: string, values: string[], type: string = ""): string {
+        return `<tr class="row${(type != "") ? " " + type : ""}"><td class="row_title">${name}</td>${values.map((value) => `<td>${value}</td>`).join("")}</tr>`;
     }
 
     function renderParams(characterInfos: [Character, string][]): string {
@@ -27,7 +43,7 @@ export namespace Render {
     function renderNumberLists<K>(name: string, keyInfos: [K, string][], lists: NumberList<K>[]): string {
         const listHeader = renderSubHeader(name);
         const listBody = keyInfos.map((keyInfos: [K, string]) => {
-            return renderRow(keyInfos[1], lists.map((list: NumberList<K>) => list.getItem(keyInfos[0]).toString()));
+            return renderRow(keyInfos[1], lists.map((list: NumberList<K>) => list.getItem(keyInfos[0]).toString()), keyInfos[1]);
         }).join("");
         return listHeader + listBody;
     }

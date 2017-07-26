@@ -55,13 +55,13 @@ function printCharacter(character: Character, name: string) {
 
 function createSteppeNoble(additionalYears: number = 0): Character {
     const character = new Character();
-    character.setChildhood(HomeRegionKey.WILD_STEPPE, ParentalLineageKey.STEPPE_NOBLE, VectorKey.PHY, SkillKey.RIDING);
+    character.setChildhood(HomeRegionKey.WILD_STEPPE, ParentalLineageKey.STEPPE_NOBLE, VectorKey.PHY, SkillKey.RIDING_HORSE);
 
 
     for (let i = 0; i < 4; ++i) {
         const skills = new SkillList([
             [SkillKey.LEADERSHIP, 0.4],
-            [SkillKey.RIDING, 0.2],
+            [SkillKey.RIDING_HORSE, 0.2],
             [SkillKey.KNOWLEDGE_LAW, 0.2],
             [SkillKey.COMBAT_SABER, 0.1],
             [SkillKey.COMBAT_BOW, 0.1],
@@ -75,7 +75,7 @@ function createSteppeNoble(additionalYears: number = 0): Character {
     for (let i = 0; i < 2; ++i) {
         const skills = new SkillList([
             [SkillKey.LEADERSHIP, 0.1],
-            [SkillKey.RIDING, 0.3],
+            [SkillKey.RIDING_HORSE, 0.3],
             [SkillKey.COMBAT_SABER, 0.2],
             [SkillKey.COMBAT_BOW, 0.1],
             [SkillKey.KNOWLEDGE_LIFE_STEPPE, 0.3],
@@ -90,7 +90,7 @@ function createSteppeNoble(additionalYears: number = 0): Character {
     for (let i = 0; i < 2; ++i) {
         const skills = new SkillList([
             [SkillKey.LEADERSHIP, 0.4],
-            [SkillKey.RIDING, 0.2],
+            [SkillKey.RIDING_HORSE, 0.2],
             [SkillKey.COMBAT_SABER, 0.3],
             [SkillKey.COMBAT_BOW, 0.1],
         ], 0);
@@ -104,7 +104,7 @@ function createSteppeNoble(additionalYears: number = 0): Character {
     for (let i = 0; i < additionalYears; ++i) {
         const skills = new SkillList([
             [SkillKey.LEADERSHIP, 0.1],
-            [SkillKey.RIDING, 0.3],
+            [SkillKey.RIDING_HORSE, 0.3],
             [SkillKey.COMBAT_SABER, 0.2],
             [SkillKey.COMBAT_BOW, 0.1],
             [SkillKey.KNOWLEDGE_LIFE_STEPPE, 0.3],
@@ -148,7 +148,7 @@ function createClassicNoblePoet(): Character {
 
     for (let i = 0; i < 6; ++i) {
         const skills = new SkillList([
-            [SkillKey.RIDING, 0.1],
+            [SkillKey.RIDING_HORSE, 0.1],
             [SkillKey.COMBAT_RAPIER, 0.3],
             [SkillKey.KNOWLEDGE_ETIQUETTE, 0.1],
             [SkillKey.KNOWLEDGE_APPRAISAL, 0.1],
@@ -275,8 +275,72 @@ function createDoctor(additionalYears: number = 0): Character {
     return character;
 }
 
+function createAshdariMahout(): Character {
+    const character = new Character();
+    character.setChildhood(HomeRegionKey.WET_TROPICAL_FOREST, ParentalLineageKey.ASHDARI_HERDSMAN, VectorKey.ETH, SkillKey.RIDING_ELEPHANT);
+
+    for (let i = 0; i < 6; ++i) {
+        const skills = new SkillList([
+            [SkillKey.RIDING_ELEPHANT, 0.4],
+            [SkillKey.CHORES, 0.3],
+            [SkillKey.KNOWLEDGE_ETIQUETTE, 0.2],
+            [SkillKey.KNOWLEDGE_LAW, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.4],
+            [StateKey.FAVORITE_LABORS, 0.3],
+            [StateKey.SERVICE, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WET_TROPICAL_FOREST_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 1; ++i) {
+        const skills = new SkillList([
+            [SkillKey.RIDING_ELEPHANT, 0.1],
+            [SkillKey.CHORES, 0.4],
+            [SkillKey.MEDICINE_WITCH_DOCTORING, 0.5],
+        ], 0);
+        const states = new StateList([
+            [StateKey.SORROW, 0.5],
+            [StateKey.HARD_WORD, 0.5],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WET_TROPICAL_FOREST_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 1; ++i) {
+        const skills = new SkillList([
+            [SkillKey.KNOWLEDGE_LIFE_WET_TROPICAL_FOREST, 0.2],
+            [SkillKey.RIDING_ELEPHANT, 0.4],
+            [SkillKey.HUNTING, 0.4],
+        ], 0);
+        const states = new StateList([
+            [StateKey.SENSE_OF_FREEDOM, 0.7],
+            [StateKey.ADRENALINE, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WET_TROPICAL_FOREST, skills, states));
+    }
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.RIDING_ELEPHANT, 0.2],
+            [SkillKey.HUNTING, 0.2],
+            [SkillKey.COMBAT_JAVELIN, 0.3],
+            [SkillKey.COMBAT_SPEAR, 0.3],
+        ], 0);
+        const states = new StateList([
+            [StateKey.UNREQUITED_LOVE, 0.4],
+            [StateKey.INTERESTING_INTERLOCUTORS, 0.3],
+            [StateKey.NEW_BIRTH, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.WET_TROPICAL_FOREST, skills, states));
+    }
+
+    character.invalidate();
+    return character;
+}
+
 Render.renderCharacters([
-    // [createSteppeNoble(0), "Steppe noble, 22"],
+    [createSteppeNoble(0), "Steppe noble, 22"],
     // [createSteppeNoble(6), "Steppe noble, 28"],
     // [createSteppeNoble(12), "Steppe noble, 34"],
     // [createSteppeNoble(18), "Steppe noble, 40"],
@@ -287,9 +351,10 @@ Render.renderCharacters([
     // [createClassicNoblePoet(), "Noble poet, 22"],
     // [createWinegrapePeasant(), "Lakuar winegrape peasant, 22"],
     [createDoctor(0), "Ghetto doctor, 22"],
-    [createDoctor(6), "Ghetto doctor, 28"],
-    [createDoctor(12), "Ghetto doctor, 34"],
-    [createDoctor(18), "Ghetto doctor, 40"],
-    [createDoctor(24), "Ghetto doctor, 46"],
-    [createDoctor(30), "Ghetto doctor, 52"],
+    [createAshdariMahout(), "Ashdari mahout, 22"],
+    // [createDoctor(6), "Ghetto doctor, 28"],
+    // [createDoctor(12), "Ghetto doctor, 34"],
+    // [createDoctor(18), "Ghetto doctor, 40"],
+    // [createDoctor(24), "Ghetto doctor, 46"],
+    // [createDoctor(30), "Ghetto doctor, 52"],
 ]);

@@ -6,6 +6,7 @@ export enum ParentalLineageKey {
     POUR_LAKUAR_PEASANT,
     ARTISAN_BONECARVER,
     ARTISAN_DOCTOR,
+    ASHDARI_HERDSMAN,
 }
 
 export class ParentalLineage {
@@ -42,7 +43,7 @@ export class ParentalLineages {
                 [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
                 [SkillKey.COMBAT_SPEAR, SkillValue.NORMAL],
                 [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
-                [SkillKey.RIDING, SkillValue.NORMAL],
+                [SkillKey.RIDING_HORSE, SkillValue.NORMAL],
                 [SkillKey.LEADERSHIP, SkillValue.NORMAL],
                 [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
                 [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.SMALL],
@@ -60,7 +61,7 @@ export class ParentalLineages {
         this._addParentalLineage(
             ParentalLineageKey.CLASSIS_NOBLE,
             [
-                [SkillKey.RIDING, SkillValue.NORMAL],
+                [SkillKey.RIDING_HORSE, SkillValue.NORMAL],
                 [SkillKey.COMBAT_LANCE, SkillValue.NORMAL],
                 [SkillKey.COMBAT_RAPIER, SkillValue.NORMAL],
                 [SkillKey.KNOWLEDGE_ETIQUETTE, SkillValue.NORMAL],
@@ -83,6 +84,14 @@ export class ParentalLineages {
                 [SkillKey.MEDICINE_DOCTORING, SkillValue.SMALL],
                 [SkillKey.CHORES, SkillValue.NORMAL],
                 [SkillKey.SERVICE_COURIER, SkillValue.NORMAL],
+            ]
+        );
+        this._addParentalLineage(
+            ParentalLineageKey.ASHDARI_HERDSMAN,
+            [
+                [SkillKey.CHORES, SkillValue.SMALL],
+                [SkillKey.TRAINING_CHILDISH_GAMES, SkillValue.SMALL],
+                [SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST, SkillValue.NORMAL],
             ]
         );
     }
