@@ -6,6 +6,7 @@ export enum ParentalLineageKey {
     POUR_LAKUAR_PEASANT,
     ARTISAN_BONECARVER,
     ARTISAN_DOCTOR,
+    MINER,
     ASHDARI_HERDSMAN,
 }
 
@@ -42,7 +43,7 @@ export class ParentalLineages {
                 [SkillKey.COMBAT_SABER, SkillValue.NORMAL],
                 [SkillKey.COMBAT_BOW, SkillValue.NORMAL],
                 [SkillKey.COMBAT_SPEAR, SkillValue.NORMAL],
-                // [SkillKey.COMBAT_WHIP, SkillValue.NORMAL],
+                [SkillKey.COMBAT_UNARMED, SkillValue.SMALL],
                 [SkillKey.RIDING_HORSE, SkillValue.NORMAL],
                 [SkillKey.LEADERSHIP, SkillValue.NORMAL],
                 [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
@@ -92,6 +93,13 @@ export class ParentalLineages {
                 [SkillKey.CHORES, SkillValue.SMALL],
                 [SkillKey.TRAINING_CHILDISH_GAMES, SkillValue.SMALL],
                 [SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST, SkillValue.NORMAL],
+            ]
+        );
+        this._addParentalLineage(
+            ParentalLineageKey.MINER,
+            [
+                [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.LARGE],
+                [SkillKey.CHORES, SkillValue.NORMAL],
             ]
         );
     }

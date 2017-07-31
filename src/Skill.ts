@@ -48,6 +48,7 @@ export enum SkillKey {
     COMBAT_BERDYSH,
     COMBAT_GLAIVE,
     COMBAT_RAPIER,
+    COMBAT_UNARMED,
     // COMBAT_WHIP,
     // COMBAT_JAVELIN,
     COMBAT_BOW,
@@ -98,7 +99,9 @@ export enum SkillKey {
     AGRICULTURE_HERDING_STEPPE,
     AGRICULTURE_HERDING_TUNDRA,
     AGRICULTURE_HERDING_WET_TROPICAL_FOREST,
+    AGRICULTURE_HERDING_MISTY_ISLAND_HIGHLANDS,
     AGRICULTURE_BEEKEEPING,
+    RHETORIC,
     ORATORY,
     GESTICULATION,
     LEADERSHIP,
@@ -106,15 +109,19 @@ export enum SkillKey {
     ALCHEMY_PHARMACY,
     FISHING,
     HUNTING,
+    MINING,
+    SWIMMING,
     PICKPOCKETING,
     LOCKPICKING,
     PROSTITUTION,
+    BOOZE,
     SERVICE_TRADE,
     SERVICE_SOMMELIER,
     SERVICE_COURIER,
     CHORES,
     TRAINING_CHILDISH_SPORTS,
     TRAINING_CHILDISH_GAMES,
+    TRAINING_MILITARY,
 }
 
 export const StatRollBonusSkillKeys = () => [
@@ -150,6 +157,7 @@ export const WeaponSkillKeys = () => [
     SkillKey.COMBAT_BERDYSH,
     SkillKey.COMBAT_GLAIVE,
     SkillKey.COMBAT_RAPIER,
+    SkillKey.COMBAT_UNARMED,
     // SkillKey.COMBAT_WHIP,
     // SkillKey.COMBAT_JAVELIN,
     SkillKey.COMBAT_BOW,
@@ -219,7 +227,9 @@ export const SkillKeys = () => {
             SkillKey.AGRICULTURE_HERDING_STEPPE,
             SkillKey.AGRICULTURE_HERDING_TUNDRA,
             SkillKey.AGRICULTURE_HERDING_WET_TROPICAL_FOREST,
+            SkillKey.AGRICULTURE_HERDING_MISTY_ISLAND_HIGHLANDS,
             SkillKey.AGRICULTURE_BEEKEEPING,
+            SkillKey.RHETORIC,
             SkillKey.ORATORY,
             SkillKey.GESTICULATION,
             SkillKey.LEADERSHIP,
@@ -227,15 +237,19 @@ export const SkillKeys = () => {
             SkillKey.ALCHEMY_PHARMACY,
             SkillKey.FISHING,
             SkillKey.HUNTING,
+            SkillKey.MINING,
+            SkillKey.SWIMMING,
             SkillKey.PICKPOCKETING,
             SkillKey.LOCKPICKING,
             SkillKey.PROSTITUTION,
+            SkillKey.BOOZE,
             SkillKey.SERVICE_TRADE,
             SkillKey.SERVICE_SOMMELIER,
             SkillKey.SERVICE_COURIER,
             SkillKey.CHORES,
             SkillKey.TRAINING_CHILDISH_SPORTS,
             SkillKey.TRAINING_CHILDISH_GAMES,
+            SkillKey.TRAINING_MILITARY,
         ]
     );
 };
@@ -459,7 +473,7 @@ export class Skills {
             [SkillTagKey.WEAPON_MELEE_GUARD_TYPE_SIMPLE, 1],
             [SkillTagKey.WEAPON_MELEE_BLADE_CUTTING_EDGE_COUNT_1, 1],
             [SkillTagKey.WEAPON_MELEE_BLADE_GRIP_TYPE_STRAIGHT, 1],
-            [SkillTagKey.WEAPON_MELEE_DAMAGE_MODIFIER_WEAK, 1],
+            [SkillTagKey.WEAPON_MELEE_DAMAGE_MODIFIER_NO, 1],
             [SkillTagKey.WEAPON_MELEE_ATTACK_TYPE_COUNT_1, 1],
         ]);
         this._addSkill(SkillKey.COMBAT_BASTARD_SWORD, [
@@ -767,6 +781,14 @@ export class Skills {
             [SkillTagKey.WEAPON_MELEE_DAMAGE_MODIFIER_NO, 1],
             [SkillTagKey.WEAPON_MELEE_ATTACK_TYPE_COUNT_2, 1],
         ]);
+        this._addSkill(SkillKey.COMBAT_UNARMED, [
+            [StatKey.PHY_STR, 0.4],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.3],
+        ], [
+            [SkillTagKey.WEAPON_MELEE_HAND_COUNT_1, 1],
+            [SkillTagKey.WEAPON_MELEE_DAMAGE_TYPE_CRUSHING, 1],
+        ]);
         this._addSkill(SkillKey.COMBAT_BOW, [
             [StatKey.PHY_STR, 0.3],
             [StatKey.PHY_DEX, 0.4],
@@ -1012,6 +1034,13 @@ export class Skills {
             [StatKey.ETH_STR, 0.2],
             [StatKey.ETH_CON, 0.1],
         ], []);
+        this._addSkill(SkillKey.RHETORIC, [
+            [StatKey.PSI_STR, 0.1],
+            [StatKey.PSI_DEX, 0.5],
+            [StatKey.PSI_CON, 0.4],
+        ], [
+            [SkillTagKey.COMMUNICATION, 1],
+        ]);
         this._addSkill(SkillKey.ORATORY, [
             [StatKey.ETH_STR, 0.5],
             [StatKey.ETH_DEX, 0.3],
@@ -1053,6 +1082,12 @@ export class Skills {
             [StatKey.ETH_CON, 0.3],
             [StatKey.PSI_CON, 0.1],
         ], []);
+        this._addSkill(SkillKey.AGRICULTURE_HERDING_MISTY_ISLAND_HIGHLANDS, [
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.4],
+            [StatKey.ETH_DEX, 0.2],
+            [StatKey.ETH_CON, 0.3],
+        ], []);
         this._addSkill(SkillKey.AGRICULTURE_BEEKEEPING, [
         ], []);
         this._addSkill(SkillKey.FISHING, [
@@ -1068,6 +1103,16 @@ export class Skills {
             [StatKey.ETH_DEX, 0.2],
             [StatKey.ETH_CON, 0.3],
             [StatKey.PSI_DEX, 0.1],
+        ], []);
+        this._addSkill(SkillKey.MINING, [
+            [StatKey.PHY_STR, 0.4],
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.5],
+        ], []);
+        this._addSkill(SkillKey.SWIMMING, [
+            [StatKey.PHY_STR, 0.1],
+            [StatKey.PHY_DEX, 0.3],
+            [StatKey.PHY_CON, 0.6],
         ], []);
         this._addSkill(SkillKey.CRAFTING_BLACKSMITHING, [
             [StatKey.PHY_STR, 0.5],
@@ -1094,6 +1139,11 @@ export class Skills {
             [StatKey.PSI_CON, 0.3],
         ], []);
         this._addSkill(SkillKey.PROSTITUTION, [
+        ], []);
+        this._addSkill(SkillKey.BOOZE, [
+            [StatKey.ETH_STR, 0.5],
+            [StatKey.ETH_DEX, 0.3],
+            [StatKey.PSI_CON, 0.2],
         ], []);
         this._addSkill(SkillKey.SERVICE_TRADE, [
             [StatKey.ETH_STR, 0.3],
@@ -1134,6 +1184,12 @@ export class Skills {
             [StatKey.ETH_STR, 0.2],
             [StatKey.ETH_DEX, 0.2],
             [StatKey.PSI_DEX, 0.1],
+        ], []);
+        this._addSkill(SkillKey.TRAINING_MILITARY, [
+            [StatKey.PHY_STR, 0.3],
+            [StatKey.PHY_DEX, 0.1],
+            [StatKey.PHY_CON, 0.4],
+            [StatKey.ETH_CON, 0.2],
         ], []);
     }
 

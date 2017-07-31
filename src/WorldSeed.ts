@@ -4,6 +4,7 @@ export namespace WorldSeed {
     const NUMBER_POW_2 = Math.pow(NUMBER_POW_1, NUMBER);
     const NUMBER_POW_3 = Math.pow(NUMBER_POW_2, NUMBER);
     const NUMBER_POW_4 = Math.pow(NUMBER_POW_3, NUMBER);
+    const NUMBER_POW_0 = Math.pow(NUMBER, 1 / NUMBER);
 
     export function skillToStatMagicFn(value: number): number {
         return (value > 0)
@@ -40,7 +41,7 @@ export namespace WorldSeed {
     }
 
     export function paramHealthMagicFn(phyStr: number, phyDex: number, phyCon: number): number {
-        return phyStr * 3 + phyDex * 1 + phyCon * 9;
+        return phyStr * NUMBER_POW_2 + phyDex * NUMBER_POW_0 + phyCon * NUMBER_POW_4;
     }
 
     export function paramHpMagicFn(health: number, willPower: number): number {

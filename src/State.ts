@@ -158,6 +158,8 @@ export class States {
         this._addState(StateKey.EXCITEMENT, [
         ]);
         this._addState(StateKey.COURAGE, [
+            [StatKey.ETH_STR, 0.4],
+            [StatKey.ETH_DEX, 0.1],
         ]);
         this._addState(StateKey.SORROW, [
             [StatKey.ETH_STR, 0.4],

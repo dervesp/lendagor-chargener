@@ -339,6 +339,138 @@ function createAshdariMahout(): Character {
     return character;
 }
 
+function createBully(): Character {
+    const character = new Character();
+    character.setChildhood(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, ParentalLineageKey.MINER, VectorKey.PHY, SkillKey.COMBAT_UNARMED);
+
+    for (let i = 0; i < 4; ++i) {
+        const skills = new SkillList([
+            [SkillKey.MINING, 0.6],
+            [SkillKey.ART_PERFORMANCE_DANCE_SPORTY, 0.2],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.1],
+            [SkillKey.BOOZE, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.COURAGE, 0.2],
+            [StateKey.ROUTINE, 0.4],
+            [StateKey.HARD_WORD, 0.4],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, skills, states));
+    }
+
+    for (let i = 0; i < 4; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_HALBERD, 0.3],
+            [SkillKey.COMBAT_MACE, 0.2],
+            [SkillKey.TRAINING_MILITARY, 0.2],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.1],
+            [SkillKey.BOOZE, 0.2],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.8],
+            [StateKey.NEW_BIRTH, 0.2],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, skills, states));
+    }
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_MACE, 0.3],
+            [SkillKey.TRAINING_MILITARY, 0.1],
+            [SkillKey.LEADERSHIP, 0.3],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.1],
+            [SkillKey.BOOZE, 0.2],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.3],
+            [StateKey.UNREQUITED_LOVE, 0.4],
+            [StateKey.NEW_BIRTH, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, skills, states));
+    }
+
+    for (let i = 0; i < 3; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_MACE, 0.3],
+            [SkillKey.TRAINING_MILITARY, 0.2],
+            [SkillKey.LEADERSHIP, 0.3],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.2],
+            [SkillKey.BOOZE, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.4],
+            [StateKey.LOVE, 0.6],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, skills, states));
+    }
+
+    for (let i = 0; i < 4; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_MACE, 0.2],
+            [SkillKey.LEADERSHIP, 0.3],
+            [SkillKey.KNOWLEDGE_WARFARE, 0.2],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.3],
+        ], 0);
+        const states = new StateList([
+            [StateKey.WAR, 0.6],
+            [StateKey.SERVICE_TO_IDEALS, 0.3],
+            [StateKey.LOVE, 0.1],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS, skills, states));
+    }
+
+    for (let i = 0; i < 3; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_MACE, 0.1],
+            [SkillKey.LEADERSHIP, 0.2],
+            [SkillKey.KNOWLEDGE_RELIGION, 0.1],
+            [SkillKey.KNOWLEDGE_LAW, 0.3],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.2],
+            [SkillKey.BOOZE, 0.1],
+        ], 0);
+        const states = new StateList([
+            [StateKey.HARD_WORD, 0.5],
+            [StateKey.PRAGMATISM, 0.3],
+            [StateKey.INTERESTING_INTERLOCUTORS, 0.2],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS_CITY, skills, states));
+    }
+
+    for (let i = 0; i < 3; ++i) {
+        const skills = new SkillList([
+            [SkillKey.COMBAT_MACE, 0.1],
+            [SkillKey.LEADERSHIP, 0.5],
+            [SkillKey.KNOWLEDGE_WARFARE, 0.2],
+            [SkillKey.RHETORIC, 0.2],
+        ], 0);
+        const states = new StateList([
+            [StateKey.WAR, 0.1],
+            [StateKey.PRAGMATISM, 0.5],
+            [StateKey.SENSE_OF_FREEDOM, 0.4],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS_CITY, skills, states));
+    }
+
+
+    for (let i = 0; i < 2; ++i) {
+        const skills = new SkillList([
+            [SkillKey.LEADERSHIP, 0.1],
+            [SkillKey.RHETORIC, 0.2],
+            [SkillKey.KNOWLEDGE_GHETTO, 0.2],
+            [SkillKey.KNOWLEDGE_LAW, 0.2],
+            [SkillKey.BOOZE, 0.3],
+        ], 0);
+        const states = new StateList([
+            [StateKey.FAVORITE_LABORS, 0.7],
+            [StateKey.SENSE_OF_FREEDOM, 0.3],
+        ], 0);
+        character.addLifeYear(new LifeYear(HomeRegionKey.MISTY_ISLAND_HIGHLANDS_CITY, skills, states));
+    }
+
+    character.invalidate();
+    return character;
+}
+
 Render.renderCharacters([
     [createSteppeNoble(0), "Steppe noble, 22"],
     // [createSteppeNoble(6), "Steppe noble, 28"],
@@ -348,13 +480,14 @@ Render.renderCharacters([
     // [createSteppeNoble(30), "Steppe noble, 52"],
     // [createSteppeNoble(36), "Steppe noble, 58"],
     // [createSteppeNoble(42), "Steppe noble, 64"],
-    // [createClassicNoblePoet(), "Noble poet, 22"],
-    // [createWinegrapePeasant(), "Lakuar winegrape peasant, 22"],
-    [createDoctor(0), "Ghetto doctor, 22"],
+    [createClassicNoblePoet(), "Noble poet, 22"],
+    [createWinegrapePeasant(), "Lakuar winegrape peasant, 22"],
+    // [createDoctor(0), "Ghetto doctor, 22"],
     [createAshdariMahout(), "Ashdari mahout, 22"],
     // [createDoctor(6), "Ghetto doctor, 28"],
     // [createDoctor(12), "Ghetto doctor, 34"],
     // [createDoctor(18), "Ghetto doctor, 40"],
     // [createDoctor(24), "Ghetto doctor, 46"],
     // [createDoctor(30), "Ghetto doctor, 52"],
+    [createBully(), "Bully sergeant, 37"],
 ]);

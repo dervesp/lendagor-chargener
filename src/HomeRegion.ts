@@ -11,6 +11,8 @@ export enum HomeRegionKey {
     MIDDLE_TAIGA_LAKES_CITY,
     WET_TROPICAL_FOREST, //ASHDAR'IAN
     WET_TROPICAL_FOREST_CITY, //ASHDAR'IAN
+    MISTY_ISLAND_HIGHLANDS,
+    MISTY_ISLAND_HIGHLANDS_CITY,
 }
 
 export class HomeRegion {
@@ -211,6 +213,62 @@ export class HomeRegions {
                     [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
                     [SkillKey.KNOWLEDGE_GHETTO, SkillValue.SMALL],
+                ]],
+            ],
+        );
+        this._addHomeRegion(
+            HomeRegionKey.MISTY_ISLAND_HIGHLANDS,[
+                [SkillKey.FISHING, SkillModifier.BONUS_1],
+                [SkillKey.MINING, SkillModifier.BONUS_2],
+                [SkillKey.CRAFTING_BLACKSMITHING, SkillModifier.BONUS_1],
+            ],
+            [
+                [SkillKey.AGRICULTURE_HERDING_MISTY_ISLAND_HIGHLANDS, SkillValue.NORMAL],
+                [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_RELIGION, SkillValue.SMALL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.NORMAL],
+                    [SkillKey.CHORES, SkillValue.NORMAL],
+                    [SkillKey.SWIMMING, SkillValue.SMALL],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.AGRICULTURE_HERDING_MISTY_ISLAND_HIGHLANDS, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_LEGENDS, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_RELIGION, SkillValue.NORMAL],
+                ]],
+            ],
+        );
+        this._addHomeRegion(
+            HomeRegionKey.MISTY_ISLAND_HIGHLANDS_CITY,
+            CitySkillBonuses([
+                [SkillKey.CRAFTING_BLACKSMITHING, SkillModifier.BONUS_2],
+                [SkillKey.KNOWLEDGE_RELIGION, SkillModifier.BONUS_1],
+                [SkillKey.SERVICE_TRADE, SkillModifier.BONUS_2],
+                [SkillKey.PROSTITUTION, SkillModifier.BONUS_2],
+                [SkillKey.PICKPOCKETING, SkillModifier.BONUS_2],
+            ]),
+            [
+                [SkillKey.KNOWLEDGE_LAW, SkillValue.SMALL],
+                [SkillKey.CHORES, SkillValue.NORMAL],
+                [SkillKey.KNOWLEDGE_RELIGION, SkillValue.SMALL],
+            ],
+            [
+                [VectorKey.PHY, [
+                    [SkillKey.TRAINING_CHILDISH_SPORTS, SkillValue.NORMAL],
+                    [SkillKey.CHORES, SkillValue.SMALL],
+                ]],
+                [VectorKey.ETH, [
+                    [SkillKey.ORATORY, SkillValue.NORMAL],
+                    [SkillKey.ART_STORYTELLING, SkillValue.NORMAL],
+                ]],
+                [VectorKey.PSI, [
+                    [SkillKey.KNOWLEDGE_APPRAISAL, SkillValue.NORMAL],
+                    [SkillKey.KNOWLEDGE_LAW, SkillValue.NORMAL],
                 ]],
             ],
         );
